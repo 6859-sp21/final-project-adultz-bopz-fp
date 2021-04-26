@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 import './Timeline.css';
 
 const DEFAULT_YEAR = 2000;
+const MAX_COUNT = 50
+
 const colors = {
   "alcohol & drugs": "red",
   "identity": "orange",
@@ -12,6 +14,9 @@ const colors = {
   "other": "white",
   "violence": "yellow",
 }
+
+const fontScale = d3.scaleLinear().domain([0, MAX_COUNT]).range([12, 18]);
+
 
 const Timeline = () => {
   const [year, setYear] = useState(DEFAULT_YEAR);
@@ -37,17 +42,14 @@ const Timeline = () => {
     .padding(1)
     .round(true)
   (d3.hierarchy(data)
-      .sum(d => { 
-        // console.log(d);
-        return d.count;
-      })
-      .sort((a, b) => b.count - a.count))
+      .sum(d => d.count)
+      .sort((a, b) => b.data.count - a.data.count));
 
   useEffect(() => {
     d3.selectAll("g > *").remove();
 
     const root = data;
-    console.log(root)
+
     if (root) {
       const svg = d3.select(d3Container.current)
         .attr("viewBox", [0, 0, width, height])
@@ -58,18 +60,18 @@ const Timeline = () => {
         .join("g")
           .attr("transform", d => `translate(${d.x0},${d.y0})`);
 
-      leaf.append("text")
-        .text(d => d.data.badword)
-        .attr('fill', d => 'white');
-
       leaf.append("rect")
-        // .attr("id", d => (d.leafUid = DOM.uid("leaf")).id)
-        .attr("fill", d => {
-          return colors[d.data.category]
-        })
+        .attr("fill", d => colors[d.parent.data.name])
         .attr("fill-opacity", 0.6)
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0);
+
+      leaf.append("text")
+        .text(d => d.data.name)
+        .attr('fill', _ => 'white')
+        .attr('x', 3)
+        .attr('y', '1em')
+        .style('font-size', d => fontScale(d.data.count).toString() + 'pt');
 
       return svg.node();
     }
@@ -77,10 +79,11 @@ const Timeline = () => {
 
   return (
     <div className='timeline-container'>
+      <h1>header goes here</h1>
       <svg
         className="d3-component"
-        width="100%"
-        height="100%"
+        width="80%"
+        height="80%"
         ref={d3Container}
       />
     </div>
