@@ -62,6 +62,7 @@ const BubbleStep = ({shouldFocus}) => {
 
   const [songOrArtist, setSongOrArtist] = useState(null);
   const [artists, setArtists] = useState([]);
+  const [showCensored, setShowCensored] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,6 +71,10 @@ const BubbleStep = ({shouldFocus}) => {
     };
     fetchData();
   }, []);
+
+  const toggleCensoredCheckbox = () => {
+    setShowCensored(!showCensored);
+  }
 
   return (
     <div>
@@ -87,8 +92,12 @@ const BubbleStep = ({shouldFocus}) => {
         />
         spitting?
       </div>
+      <div className='App-checkbox'>
+        <input type='checkbox' id='showCensored' checked={showCensored} onChange={toggleCensoredCheckbox}></input>
+        <label htmlFor='showCensored'>Show Censored Songs</label>
+      </div>
       <div className="App-header">
-        <Bubbles shouldFocus={shouldFocus} songOrArtist={songOrArtist} setSongOrArtist={setSongOrArtist} />
+        <Bubbles shouldFocus={shouldFocus} songOrArtist={songOrArtist} setSongOrArtist={setSongOrArtist} showCensored={showCensored} />
       </div>
       <div className="App-data">data from The Pudding (https://github.com/the-pudding/data/tree/master/kidz-bop)</div>
     </div>

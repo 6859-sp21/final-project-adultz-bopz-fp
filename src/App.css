@@ -56,13 +56,17 @@ body {
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
+}
+
+ ::-webkit-scrollbar-thumb {
     background: #fff1;
     border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-track {
+}
+
+ ::-webkit-scrollbar-track {
     background: none;
-  }
+}
+
+.App-checkbox {
+    text-align: center;
+}

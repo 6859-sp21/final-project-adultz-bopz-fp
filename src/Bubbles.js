@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import * as d3 from "d3";
-import { genNestedData } from "./utils/data-transform";
+import { genNestedData, genFilteredData } from "./utils/data-transform";
 import { width, height, pack } from "./utils/d3-config.js";
 import { VIEW_ALL_OPTION } from "./App";
 import "./Bubbles.css";
@@ -20,10 +20,41 @@ const color = [null, scale1, scale2, scale3, scale3];
 
 let svg, view, label, node, focus;
 
-const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
+const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus, showCensored }) => {
   const [root, setRoot] = useState(null);
+  const [allNodeData, setAllNodeData] = useState(null);
+  const [filteredNodeData, setFilteredNodeData] = useState(null);
 
   const d3Container = useRef(null);
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      let allResults = await genNestedData();
+      let filteredResults = await genFilteredData();
+      setAllNodeData(allResults);
+      setFilteredNodeData(filteredResults);
+      
+      const input = { name: "artists", children: allResults };
+      let output = pack(input);
+      setRoot(output);
+    };
+
+    if( allNodeData === null || filteredNodeData === null){
+      fetchData();
+    } else {
+      if( !showCensored ){
+        let input = { name: "artists", children: filteredNodeData };
+        let output = pack(input);
+        setRoot(output);
+      } else if (showCensored){
+        let input = { name: "artists", children: allNodeData };
+        let output = pack(input);
+        setRoot(output);
+      }
+    }
+
+  }, [showCensored]);
 
   // don't call setSongOrArtist if title update is due to props change
   const updateArtistTitle = (d, shouldUpdate) => {
@@ -137,16 +168,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await genNestedData();
-      const input = { name: "artists", children: res };
-      setRoot(pack(input));
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (!shouldFocus && focus && focus.depth == 2) {
+    if (!shouldFocus && focus && focus.depth === 2) {
       closeLyrics()
     }
   }, [shouldFocus]);
