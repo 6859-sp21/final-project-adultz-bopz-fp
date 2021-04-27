@@ -19,8 +19,6 @@ export const genNestedData = async (csvData = null) => {
     csvData = await genRawData();
   }
   
-  // let groupedByCategory = Array.from(d3.group(csvData, (d) => d.category)).map(
-  //  (category) => {
   let groupedByArtist = Array.from(d3.group(csvData, (d) => d.ogArtist)).map(
   (item) => {
     let groupedByBadword = Array.from(
@@ -47,12 +45,8 @@ export const genNestedData = async (csvData = null) => {
     });
     return { name: item[0], children: groupedByBadword };
   });
-  // return { name: category[0], children: groupedByArtist };
   return groupedByArtist;
 };
-
-  // });
-  // return groupedByCategory;
 
 export const genTimelineData = async () => {
 
