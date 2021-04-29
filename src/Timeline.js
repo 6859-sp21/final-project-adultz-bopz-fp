@@ -63,12 +63,46 @@ const Timeline = () => {
         .sort((a, b) => b.data.count - a.data.count)
     );
 
+  const createLegend = () => {
+    const svg = d3.select("#legend")
+    
+    Object.entries(colors).map(([category, color], i) => {
+      svg.append("circle")
+         .attr("cx", 10)
+         .attr("cy", 10 + i*30)
+         .attr("r", 6)
+         .style("fill", color)
+
+      svg.append("text")
+         .attr("x", 20)
+         .attr("y", 10 + 30*i)
+         .text(category)
+         .style("font-size", "15px")
+         .attr("fill", "var(--light-text)")
+         .attr("alignment-baseline","middle")
+    }) 
+  }
+
   useEffect(() => {
     d3.selectAll("#timeline > *").remove();
+    d3.selectAll("#legend > *").remove();
 
     const root = data;
 
     if (root) {
+      createLegend();   
+      
+      // tooltip
+      d3.select("body")
+        .append("div")
+        .attr("id", "tooltip")
+        .attr("style", "position: absolute; opacity: 0;")
+        .style("color", "white")
+        .style("background-color", "#334e68bb")
+        .style("padding", "8px")
+        .style("border-radius", "4px");
+
+      // treemap 
       const svg = d3
         .select(d3Container.current)
         .attr("viewBox", [0, 0, width, height])
@@ -84,7 +118,23 @@ const Timeline = () => {
         .append("rect")
         .attr("fill", (d) => colors[d.parent.data.name])
         .attr("width", (d) => d.x1 - d.x0)
-        .attr("height", (d) => d.y1 - d.y0);
+        .attr("height", (d) => d.y1 - d.y0)
+        .on("mouseover", (e, d) => {
+          d3.select("#tooltip")
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+            .text(`'${d.data.name}' was altered in ${d.data.count} Kids Bop lyrics`);
+        })
+        .on("mousemove", (e) => {
+          d3.select("#tooltip")
+            .style("left", e.pageX + 10 + "px")
+            .style("top", e.pageY - 10 + "px");
+        })
+        .on("mouseout", (e) => {
+          d3.select(e.target).attr("stroke-width", 1).style("filter", null);
+          d3.select("#tooltip").transition().duration(200).style("opacity", 0);
+        })
 
       leaf
         .append("text")
@@ -100,15 +150,16 @@ const Timeline = () => {
 
   return (
     <div className="page-container">
-      <h1>What's being altered in pop songs over time?</h1>
+      <h1 className="title">What's being altered in pop songs over time?</h1>
       <div className="timeline-container">
         <svg
           className="d3-component"
-          width="80%"
+          width="50%"
           height="80%"
           ref={d3Container}
           id="timeline"
         />
+        <svg id="legend" height="80%" width="200px" />
         <YearScroller year={year} onChange={(newYear) => setYear(newYear)} />
       </div>
     </div>
