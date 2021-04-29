@@ -159,7 +159,7 @@ const Timeline = () => {
         .attr("fill", (_) => "var(--light-text)")
         .attr("x", 3)
         .attr("y", "1em")
-        .style("font-size", (d) => fontScale(d.data.count).toString() + "pt");
+        .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || '16pt');
 
       return svg.node();
     }
