@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Scrollama, Step } from 'react-scrollama'
 import BubbleStep from "./steps/BubbleStep";
-import { IntroStep, Step2a, Step2b, Step2c, Step2d } from './steps/StorySteps';
+import { IntroStep } from './steps/StorySteps';
 import Timeline from './Timeline';
 
 export const VIEW_ALL_OPTION = {
@@ -17,12 +17,6 @@ const App = () => {
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
   };
-
-  const TimelineTest = (
-    <div className='App'>
-      <Timeline />
-    </div>
-  );
 
   return (
     <div className="App">
