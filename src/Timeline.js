@@ -17,7 +17,7 @@ const colors = {
   violence: "#FF5630",
 };
 
-const fontScale = d3.scaleLinear().domain([0, MAX_COUNT]).range([12, 18]);
+const fontScale = d3.scaleLinear().domain([1, MAX_COUNT]).range([12, 48]);
 
 const Timeline = () => {
   const [year, setYear] = useState(MAX_YEAR);
