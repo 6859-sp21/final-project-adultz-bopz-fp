@@ -154,7 +154,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   /* The useEffect Hook is for running side effects outside of React,
        for instance inserting elements into the DOM using D3 */
   useEffect(() => {
-    d3.selectAll("g > *").remove();
+    d3.selectAll("#bubbles > *").remove();
 
     if (root && d3Container.current) {
       focus = root;
@@ -425,13 +425,8 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         <h3 className="Bubbles-layer" id="selectedBadWord">Songs</h3>
         <h3 className="Bubbles-layer" id="selectedSong">Lyrics</h3>
       </div>
-      <div id="svg-container" style={{width: "100%"}}>
-      <svg
-        className="d3-component"
-        width="100%"
-        height="100%"
-        ref={d3Container}
-      />
+      <div id="svg-container" style={{ width: "100%" }}>
+        <svg className="d3-component" width="100%" height="100%" ref={d3Container} id="bubbles" />
       </div>
     </>
   );

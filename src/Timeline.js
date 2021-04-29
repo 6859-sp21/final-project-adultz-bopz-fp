@@ -7,12 +7,12 @@ const DEFAULT_YEAR = 2000;
 const MAX_COUNT = 50
 
 const colors = {
-  "alcohol & drugs": "red",
-  "identity": "orange",
-  "sexual": "purple",
-  "profanity": "blue",
-  "other": "white",
-  "violence": "yellow",
+  "alcohol & drugs": "#00875A",
+  "identity": "#00B8D9",
+  "sexual": "#C054BE",
+  "profanity": "#FFAB00",
+  "other": "#596066",
+  "violence": "#FF5630",
 }
 
 const fontScale = d3.scaleLinear().domain([0, MAX_COUNT]).range([12, 18]);
@@ -46,7 +46,7 @@ const Timeline = () => {
       .sort((a, b) => b.data.count - a.data.count));
 
   useEffect(() => {
-    d3.selectAll("g > *").remove();
+    d3.selectAll("#timeline > *").remove();
 
     const root = data;
 
@@ -62,13 +62,12 @@ const Timeline = () => {
 
       leaf.append("rect")
         .attr("fill", d => colors[d.parent.data.name])
-        .attr("fill-opacity", 0.6)
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0);
 
       leaf.append("text")
         .text(d => d.data.name)
-        .attr('fill', _ => 'white')
+        .attr('fill', _ => 'var(--light-text)')
         .attr('x', 3)
         .attr('y', '1em')
         .style('font-size', d => fontScale(d.data.count).toString() + 'pt');
@@ -79,12 +78,14 @@ const Timeline = () => {
 
   return (
     <div className='timeline-container'>
-      <h1>header goes here</h1>
+      <h1>What's being altered in pop songs over time?</h1>
+      <h2>{year}</h2>
       <svg
         className="d3-component"
         width="80%"
         height="80%"
         ref={d3Container}
+        id="timeline"
       />
     </div>
   );
