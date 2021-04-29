@@ -76,3 +76,12 @@ export const COUNT_BY_YEAR = {
     min: 1
   }
 }
+
+export const COLORS = {
+  "alcohol & drugs": "#00875A",
+  identity: "#00B8D9",
+  sexual: "#C054BE",
+  profanity: "#FFAB00",
+  other: "#596066",
+  violence: "#FF5630",
+};

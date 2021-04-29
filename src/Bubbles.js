@@ -396,8 +396,15 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
     // Fill in year of lyric popup
     d3.select("#lyrics-year")
       .style("margin-top", 0)
-      .style("margin-bottom", "8px")
+      .style("margin-bottom", 0)
       .text(releasedYear);
+
+    // Fill in legend of lyric popup
+    const legend = d3.select("#lyrics-legend")
+                     .style("margin-top", 0)
+                     .style("margin-bottom", "8px")
+                  
+      
 
     // Fill in content of lyric popup
     d3.select("#lyrics-content").html(innerHTML);

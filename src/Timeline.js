@@ -3,19 +3,9 @@ import { genTimelineData } from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
-import { COUNT_BY_YEAR } from "./utils/utilities";
+import { COUNT_BY_YEAR, COLORS } from "./utils/utilities";
 
 const MAX_YEAR = 2019;
-
-const colors = {
-  "alcohol & drugs": "#00875A",
-  identity: "#00B8D9",
-  sexual: "#C054BE",
-  profanity: "#FFAB00",
-  other: "#596066",
-  violence: "#FF5630",
-};
-
 
 
 const Timeline = () => {
@@ -81,7 +71,7 @@ const Timeline = () => {
       return {text: titleText, opacity: titleOpacity};
     }
 
-    Object.entries(colors).map(([category, color], i) => {
+    Object.entries(COLORS).map(([category, color], i) => {
       svg.append("circle")
          .attr("cx", 10)
          .attr("cy", 10 + i*30)
@@ -133,7 +123,7 @@ const Timeline = () => {
 
       leaf
         .append("rect")
-        .attr("fill", (d) => colors[d.parent.data.name])
+        .attr("fill", (d) => COLORS[d.parent.data.name])
         .attr("width", (d) => d.x1 - d.x0)
         .attr("height", (d) => d.y1 - d.y0)
         .on("mouseover", (e, d) => {
