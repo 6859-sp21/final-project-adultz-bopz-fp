@@ -5,7 +5,7 @@ export const COUNT_BY_YEAR = {
   },
   '2002': {
     max: 4,
-    min: 3
+    min: 1
   },
   '2003': {
     max: 3,
