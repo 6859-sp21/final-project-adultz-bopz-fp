@@ -3,10 +3,9 @@ import { genTimelineData } from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
+import { COUNT_BY_YEAR } from "./utils/utilities";
 
-const MIN_YEAR = 2001;
 const MAX_YEAR = 2019;
-const MAX_COUNT = 50;
 
 const colors = {
   "alcohol & drugs": "#00875A",
@@ -17,7 +16,7 @@ const colors = {
   violence: "#FF5630",
 };
 
-const fontScale = d3.scaleLinear().domain([1, MAX_COUNT]).range([12, 48]);
+
 
 const Timeline = () => {
   const [year, setYear] = useState(MAX_YEAR);
@@ -38,6 +37,13 @@ const Timeline = () => {
       setData(treemap(filtered));
     }
   }, [year, rawData]);
+
+  const fontScale = (count) => {
+    let maxCountForYear = COUNT_BY_YEAR[year].max;
+    let minCountForYear = COUNT_BY_YEAR[year].min;
+
+    return d3.scaleLinear().domain([minCountForYear, maxCountForYear]).range([16, 48])(count);
+  } 
 
   const initData = async () => {
     const res = await genTimelineData();
@@ -65,7 +71,16 @@ const Timeline = () => {
 
   const createLegend = () => {
     const svg = d3.select("#legend")
-    
+
+    const getLegendTitleInfo = (categoryName) => {
+      let categoryData = data.children.filter((item) => item.data.name === categoryName)[0];
+      let count = categoryData ? categoryData.children.reduce((sum, item) => sum + item.data.count, 0) : 0;
+      let titleText = categoryName + ' (' + count + ')';
+      let titleOpacity = (categoryData) ? 1 : 0.6;
+
+      return {text: titleText, opacity: titleOpacity};
+    }
+
     Object.entries(colors).map(([category, color], i) => {
       svg.append("circle")
          .attr("cx", 10)
@@ -73,10 +88,12 @@ const Timeline = () => {
          .attr("r", 6)
          .style("fill", color)
 
+      let legendTextInfo = getLegendTitleInfo(category); // returns a tuple with text at index 0, and opacity at index 1
       svg.append("text")
          .attr("x", 20)
          .attr("y", 10 + 30*i)
-         .text(category)
+         .text(legendTextInfo.text || category)
+         .style('opacity', legendTextInfo.opacity || 1)
          .style("font-size", "15px")
          .attr("fill", "var(--light-text)")
          .attr("alignment-baseline","middle")
@@ -159,7 +176,7 @@ const Timeline = () => {
           ref={d3Container}
           id="timeline"
         />
-        <svg id="legend" height="80%" width="200px" />
+        <svg id="legend" className='legend-container' height="80%" width="200px" />
         <YearScroller year={year} onChange={(newYear) => setYear(newYear)} />
       </div>
     </div>
