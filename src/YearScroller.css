@@ -3,13 +3,12 @@
     flex-direction: column;
     padding: 20px;
     border-left: 2px solid var(--blue);
-    overflow: scroll;
-    max-height: 80vh;
+    max-height: 100%;
 }
 
 .single-year {
-    font-size: 20px;
-    padding: 8px;
+    font-size: 16px;
+    padding: 4px;
     color: #797979;
     transition: color 200ms ease-in-out;
 }
@@ -18,5 +17,5 @@
 .single-year.selected {
     color: #e0e0e0;
     cursor: pointer;
-    font-size: 28px;
+    font-size: 20px;
 }

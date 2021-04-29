@@ -146,7 +146,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   }, []);
 
   useEffect(() => {
-    if (!shouldFocus && focus && focus.depth == 2) {
+    if (!shouldFocus && focus && focus.depth === 2) {
       closeLyrics()
     }
   }, [shouldFocus]);
@@ -310,6 +310,11 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .style("text-align", "center")
         .attr("id", "lyrics-year");
 
+      d3.select("#lyrics")
+        .append("div")
+        .style("text-align", "center")
+        .attr("id", "lyrics-legend");
+
       d3.select("#lyrics").append("div").attr("id", "lyrics-content");
 
       // esc key zooms out
@@ -345,13 +350,14 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   };
 
   const generateLyricRow = (data) => {
+    console.log(data)
     let ogHeader = `<b>${data.ogArtist}</b><br />`;
     let ogLyricHTML =
-      '<div class="Bubbles-ogLyric">' + data.ogLyricHTML + "</div>";
+      `<div class="Bubbles-ogLyric ${data.category}">` + data.ogLyricHTML + "</div>";
 
     let kbHeader = "<b style='float:right'>Kidz Bop</b><br />";
     let kbLyricHTML =
-      '<div class="Bubbles-kbLyric">' + data.kbLyricHTML + "</div>";
+      `<div class="Bubbles-kbLyric">` + data.kbLyricHTML + "</div>";
 
     return (
       "<div style='width:45%'>" +

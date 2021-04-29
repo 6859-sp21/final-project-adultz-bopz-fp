@@ -24,7 +24,7 @@ const Timeline = () => {
   const [data, setData] = useState(null);
 
   const d3Container = useRef(null);
-  const width = 900;
+  const width = 1200;
   const height = 900;
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const Timeline = () => {
         .attr("fill", (_) => "var(--light-text)")
         .attr("x", 3)
         .attr("y", "1em")
-        .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || '16pt');
+        .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || '1em');
 
       return svg.node();
     }
@@ -168,15 +168,16 @@ const Timeline = () => {
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
+      <h4 className='title'>Click on each year to see which lyrics by category were altered the most that year.</h4>
       <div className="timeline-container">
         <svg
           className="d3-component"
-          width="50%"
+          width="100%"
           height="80%"
           ref={d3Container}
           id="timeline"
         />
-        <svg id="legend" className='legend-container' height="80%" width="200px" />
+        <svg id="legend" className='legend-container' height="80%" />
         <YearScroller year={year} onChange={(newYear) => setYear(newYear)} />
       </div>
     </div>

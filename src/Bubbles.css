@@ -51,8 +51,32 @@ button {
     border-radius: 2px;
 }
 
+.alcohol .ogLyric-bad {
+    background-color: #00875A;
+}
+
+.identity .ogLyric-bad {
+    background-color: #0a8ba2;
+}
+
+.sexual .ogLyric-bad {
+    background-color: #C054BE;
+}
+
+.profanity .ogLyric-bad {
+    background-color: #d08b00;
+}
+
+.other .ogLyric-bad {
+    background-color: #596066;
+}
+
+.violence .ogLyric-bad {
+    background-color: #cb3d1d;
+}
+
 .kblyric-different {
-    background-color: var(--light-green);
+    background-color: var(--light-text);
     padding-left: 4px;
     border-radius: 2px;
     color: var(--dark)
