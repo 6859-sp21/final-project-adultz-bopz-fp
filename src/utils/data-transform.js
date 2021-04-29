@@ -9,47 +9,42 @@ export const genRawData = async () => {
 export const genNestedData = async () => {
   const csvData = await genRawData();
 
-  let groupedByCategory = Array.from(d3.group(csvData, (d) => d.category)).map(
-    (category) => {
-      let groupedByArtist = Array.from(
-        d3.group(category[1], (d) => d.ogArtist)
-      ).map((item) => {
-        let groupedByBadword = Array.from(
-          d3.group(item[1], (d) => d.badword)
-        ).map((word) => {
-          let groupedBySong = Array.from(
-            d3.group(word[1], (d) => d.songName)
-          ).map((song) => {
-            // Remove repeated lyrics
-            let groupedByLyric = Array.from(
-              d3.group(song[1], (d) => d.ogLyric)
-            ).map((uniqueLyricGroup) => {
-              // uniqueLyricGroup = is a size-2 array with lyric and index 0 and array of data points at index 1
-              let dataEntries = uniqueLyricGroup[1];
-              let firstUniqueEntry = dataEntries[0];
-              const { ogLyric, kbLyric, badword } = firstUniqueEntry;
+  let groupedByArtist = Array.from(
+      d3.group(csvData, (d) => d.ogArtist)
+    ).map((item) => {
+      let groupedByBadword = Array.from(
+        d3.group(item[1], (d) => d.badword)
+      ).map((word) => {
+        let groupedBySong = Array.from(
+          d3.group(word[1], (d) => d.songName)
+        ).map((song) => {
+          // Remove repeated lyrics
+          let groupedByLyric = Array.from(
+            d3.group(song[1], (d) => d.ogLyric)
+          ).map((uniqueLyricGroup) => {
+            // uniqueLyricGroup = is a size-2 array with lyric and index 0 and array of data points at index 1
+            let dataEntries = uniqueLyricGroup[1];
+            let firstUniqueEntry = dataEntries[0];
+            const { ogLyric, kbLyric, badword } = firstUniqueEntry;
 
-              let { kbLyricHTML, ogLyricHTML } = compareLyrics(
-                badword,
-                ogLyric,
-                kbLyric
-              );
-              return {
-                ...firstUniqueEntry,
-                kbLyricHTML: kbLyricHTML,
-                ogLyricHTML: ogLyricHTML,
-              };
-            });
-            return { name: song[0], children: groupedByLyric };
+            let { kbLyricHTML, ogLyricHTML } = compareLyrics(
+              badword,
+              ogLyric,
+              kbLyric
+            );
+            return {
+              ...firstUniqueEntry,
+              kbLyricHTML: kbLyricHTML,
+              ogLyricHTML: ogLyricHTML,
+            };
           });
-          return { name: word[0], children: groupedBySong };
+          return { name: song[0], children: groupedByLyric };
         });
-        return { name: item[0], children: groupedByBadword };
+        return { name: word[0], children: groupedBySong };
       });
-      return { name: category[0], children: groupedByArtist };
-    }
-  );
-  return groupedByCategory;
+      return { name: item[0], children: groupedByBadword };
+    });
+  return groupedByArtist;
 };
 
 export const genTimelineData = async () => {
