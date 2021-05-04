@@ -132,7 +132,9 @@
 }
 
 #timeline-popup-button {
+    background-position: center;
+    background-color: black;
     background-image: url("./gifs/close-button.png");
-    background-size: 24px 24px;
+    background-size: 20px 20px;
     box-shadow: 0 0 20px -1px black;
 }
