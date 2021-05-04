@@ -24,6 +24,10 @@
     padding: 0 24px;
 }
 
+.timeline-rect:hover {
+    cursor: pointer;
+}
+
 .timeline-popup-box {
     border-radius: 15px;
 }
@@ -48,10 +52,23 @@
     overflow: scroll;
 }
 
+.timeline-popup-left-title {
+    text-align: center;
+    margin: 0 0 8px 0;
+}
+
 .timeline-popup-left-item {
-    margin: 8px 0;
+    border-radius: 8px;
+    margin: 8px;
     padding: 8px;
-    background-color: yellow;
+    box-shadow: 0 0 6px -1px black;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.timeline-popup-left-item:hover {
+    color: white;
+    background-color: black;
 }
 
 .timeline-popup-left-item-selected {
