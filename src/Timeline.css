@@ -45,14 +45,17 @@
 
 .timeline-popup-title {
     position: sticky;
+    z-index: 12;
 }
 
 .timeline-popup-subtitle {
     background-color: lightgray;
     text-align: center;
     margin: 0 0 8px 0;
+    padding-bottom: 8px;
     position: sticky;
     top: 0;
+    z-index: 12;
 }
 
 .timeline-popup-left {
@@ -64,7 +67,7 @@
     border-radius: 8px;
     margin: 8px;
     padding: 8px;
-    box-shadow: 0 0 6px -1px black;
+    box-shadow: 0 0 6px -1px rgb(130, 130, 130);
     background-color: white;
     transition: all 0.2s ease-in-out;
 }
@@ -88,7 +91,24 @@
     width: 100%;
 }
 
-.timeline-popup-right-item {
-    background-color: darkorange;
-    margin-bottom: 8px;
+.timeline-popup-right-song-section {
+    margin-bottom: 16px;
+}
+
+.timeline-popup-right-song-title {
+    padding: 8px;
+    font-weight: bold;
+    width: calc(100% - 16px);
+    background-color: gray;
+    color: white;
+}
+
+.timeline-popup-right-lyric-section {
+    background-color: red;
+}
+
+.timeline-popup-right-lyric-item {
+    margin: 0 32px;
+    padding: 8px 0;
+    border-bottom: 1px solid black;
 }

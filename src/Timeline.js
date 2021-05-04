@@ -230,6 +230,7 @@ const Timeline = () => {
         // 1. Clear any existing artist HTML nodes
         d3.selectAll('.timeline-popup-left-item').remove();
         d3.selectAll('.timeline-popup-subtitle').remove();
+        d3.selectAll('.timeline-popup-right > *').remove();
 
         // 2 Add header 
         d3.select('.timeline-popup-left')
@@ -240,7 +241,7 @@ const Timeline = () => {
         d3.select('.timeline-popup-right')
           .append("h4")
           .attr("class", "timeline-popup-subtitle")
-          .text("Lyrics")
+          .text("Songs")
           
         // 3. Get unique artists
         let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort();
@@ -254,7 +255,8 @@ const Timeline = () => {
             .text(artistData[0])
             .on("click", (e) => {
               e.preventDefault();
-              d3.selectAll(".timeline-popup-right-item").remove();
+              d3.selectAll(".timeline-popup-right-song-title").remove();
+              d3.selectAll(".timeline-popup-right-lyric-section").remove();
               loadPopupRight(artistData[1]);
             });
         });
@@ -265,27 +267,55 @@ const Timeline = () => {
         loadPopupRight(songDataFromFirstArtist);
       }
 
-      const loadPopupRight = (songs) => {
+      const loadPopupRight = (allSongs) => {
 
         // 1. Clear any existing artist HTML nodes
-        d3.selectAll('.timeline-popup-right-item').remove();
+        d3.selectAll('.timeline-popup-right-song-section').remove();
+
+        // 2. Group by song name
+        let uniqueSongs = Array.from(d3.group(allSongs, (d) => d.songName)).sort();
 
         // 3. Map songs to HTML elements
-        songs.map((songData, index) => {
-          d3.select('.timeline-popup-right')
+        uniqueSongs.map((songData, index) => {
+
+          let songTitle = songData[0];
+
+          // Create song section container
+          let sectionRef = d3.select('.timeline-popup-right')
             .append('div')
-            .attr("class", "timeline-popup-right-item")
-            .attr("id", "timeline-popup-right-item-" + index)
+            .attr('class', 'timeline-popup-right-song-section')
+            .attr('id', 'timeline-popup-right-song-section-' + index)
 
-          let ogLyric = "Original Lyric: " + songData.ogLyric;
-          let kbLyric = songData.kbLyric === CUTS_VERSE ? CUTS_VERSE : "Kidz Bop Lyric: " + songData.kbLyric;  
+          // Add song title to each section
+          sectionRef
+            .append("div")
+            .attr("class", "timeline-popup-right-song-title")
+            .attr('id', 'timeline-popup-right-song-title-' + index)
+            .text(songTitle)
 
-          let ref = d3.select('#timeline-popup-right-item-' + index);
-          ref.append("div").text(ogLyric);
-          ref.append("div")
-             .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
-             .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
-             .text(kbLyric)
+          // Create lyric section
+          sectionRef
+            .append("div")
+            .attr("class", "timeline-popup-right-lyric-section")
+            .attr("id", "timeline-popup-right-lyric-section-" + index);
+
+          // Add lyric items to lyric section
+          let ref = d3.select("#timeline-popup-right-lyric-section-" + index)
+          songData[1].map((lyricData, subIndex) => {
+            let childContainer = ref.append("div")
+              .attr("class", "timeline-popup-right-lyric-item")
+              .attr("id", "timeline-popup-right-lyric-item-" + index + "-" + subIndex)
+
+            let ogLyric = "Original Lyric: " + lyricData.ogLyric;
+            let kbLyric = lyricData.kbLyric === CUTS_VERSE ? CUTS_VERSE : "Kidz Bop Lyric: " + lyricData.kbLyric;
+            childContainer.append("div").text(ogLyric);
+            childContainer.append("div")
+              .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
+              .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
+              .text(kbLyric)
+          })
+
+          
 
         });
         
