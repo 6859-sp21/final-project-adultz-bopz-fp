@@ -239,7 +239,7 @@ const Timeline = () => {
           
 
         // 2. Get unique artists
-        let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist));
+        let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort();
         
         // 3. Map artist names to HTML elements
         artists.map((artistData, index) => {
