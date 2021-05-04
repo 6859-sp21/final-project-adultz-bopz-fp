@@ -58,7 +58,7 @@ export const genTimelineData = async () => {
         let groupedByBadword = Array.from(
           d3.group(category[1], (d) => d.badword)
         ).map((badword) => {
-          return { name: badword[0], count: badword[1].length };
+          return { name: badword[0], count: badword[1].length, leaves: badword[1]  };
         });
 
         return { name: category[0], children: groupedByBadword };

@@ -23,3 +23,53 @@
 .legend-container {
     padding: 0 24px;
 }
+
+.timeline-popup-box {
+    border-radius: 15px;
+}
+
+.timeline-popup-button:hover {
+    cursor: pointer;
+}
+
+.timeline-popup-flex {
+    display: flex;
+    margin: 0 24px 24px 24px;
+    max-width: 100%;
+    max-height: calc(100% - 3.2em - 32px);
+}
+
+.timeline-popup-title {
+    position: sticky;
+}
+
+.timeline-popup-left {
+    min-width: fit-content;
+    overflow: scroll;
+}
+
+.timeline-popup-left-item {
+    margin: 8px 0;
+    padding: 8px;
+    background-color: yellow;
+}
+
+.timeline-popup-left-item-selected {
+    background-color: orange;
+}
+
+.timeline-popup-left-item:hover {
+    cursor: pointer;
+}
+
+.timeline-popup-right {
+    background-color: orange;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    margin-left: 24px;
+}
+
+.timeline-popup-right-item {
+    background-color: darkorange;
+    margin-bottom: 8px;
+}

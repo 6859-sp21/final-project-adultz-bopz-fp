@@ -142,6 +142,10 @@ const Timeline = () => {
           d3.select(e.target).attr("stroke-width", 1).style("filter", null);
           d3.select("#tooltip").transition().duration(200).style("opacity", 0);
         })
+        .on("click", (_, d) => {
+          openModal();
+          loadDataIntoPopup(d);      
+        });
 
       leaf
         .append("text")
@@ -151,6 +155,167 @@ const Timeline = () => {
         .attr("y", "1em")
         .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || '1em');
 
+      // Create Popup Background
+      d3.select('body')
+        .append("div")
+        .attr("id", "timeline-popup-bg")
+        .style("z-index", "-10")
+        .style("position", "fixed")
+        .style("opacity", "0")
+        .style("width", "100vw")
+        .style("height", "100vh")
+        .style("background-color", "gray")
+        .style("left", 0)
+        .style("top", 0);
+
+      // Create Popup content
+      d3.select("body")
+        .append("div")
+        .attr("id", "timeline-popup-content")
+        .attr("class", "timeline-popup-box")
+        .style("position", "fixed")
+        .style("left", "10vw")
+        .style("top", "10vh")
+        .style("height", "calc(80vh - 64px)")
+        .style("width", "calc(80vw - 64px)")
+        .style("opacity", "0")
+
+      // Create Popup title
+      d3.select("#timeline-popup-content")
+        .append("h3")
+        .attr("id", "timeline-popup-title")
+        .attr("class", "timeline-popup-title")
+        .style("color", "black")
+        .style("text-align", "center");
+
+      // Create Popup body
+      d3.select("#timeline-popup-content")
+        .append("div")
+        .attr("id", "timeline-popup-body")
+        .attr("class", "timeline-popup-flex")
+        .style("color", "black")
+
+      // Create Popup left container
+      d3.select('#timeline-popup-body')
+        .append('div')
+        .attr("class", "timeline-popup-left" )
+
+      // Create Popup right container
+      d3.select('#timeline-popup-body')
+        .append('div')
+        .attr("class", "timeline-popup-right" )
+
+      // Create Popup close button
+      d3.select("#timeline-popup-content")
+        .append("div")
+        .attr("id", "timeline-popup-button")
+        .attr("class", "timeline-popup-button")
+        .style("position", "absolute")
+        .style("left", "-8px")
+        .style("top", "-8px")
+        .style("min-width", "24px")
+        .style("min-height", "24px")
+        .style("background-color", "red")
+        .style("text-align", "center")
+        .style("border-radius", "50%")
+        .on("click", (e) => {
+          e.preventDefault();
+          closeModal();
+        });
+
+      const loadPopupLeft  = (leaves) => {
+
+        // 1. Clear any existing artist HTML nodes
+        d3.selectAll('.timeline-popup-left-item').remove();
+
+        // 2. Get unique artists
+        let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist));
+        
+        // 3. Map artist names to HTML elements
+        artists.map((artistData, index) => {
+          d3.select('.timeline-popup-left')
+            .append('div')
+            .attr("class", "timeline-popup-left-item")
+            .attr("id", "timeline-popup-left-" + index)
+            .text(artistData[0])
+            .on("click", (e) => {
+              e.preventDefault();
+              d3.selectAll(".timeline-popup-right-item").remove();
+              loadPopupRight(artistData[1]);
+            });
+        });
+
+        // 4. Load initial song data into right side
+        let firstArtistData = artists[0];
+        let songDataFromFirstArtist = firstArtistData[1];
+        loadPopupRight(songDataFromFirstArtist);
+      }
+
+      const loadPopupRight = (songs) => {
+
+        // 1. Clear any existing artist HTML nodes
+        d3.selectAll('.timeline-popup-right-item').remove();
+
+        // 2. Map songs to HTML elements
+        songs.map((songData, index) => {
+          d3.select('.timeline-popup-right')
+            .append('div')
+            .attr("class", "timeline-popup-right-item")
+            .attr("id", "timeline-popup-right-" + index)
+            .text(JSON.stringify(songData));
+        });
+        
+      }
+
+      const openModal = () => {
+        // 1. Lock Scroll
+        d3.select("html").style("overflow", "hidden").style("height", "100%");
+
+        // 2. Bring Background to z-index 10
+        d3.select("#timeline-popup-bg")
+          .transition()
+          .duration(200)
+          .style("opacity", 0.6)
+          .style("z-index", "10")
+
+        // 3. Bring Background to z-index 11
+        d3.select("#timeline-popup-content")
+          .transition()
+          .duration(200)
+          .style("opacity", 1)
+          .style("z-index", "11")
+          .style("background-color", "lightgray")
+          .style("color", "black");
+      }
+
+      const closeModal = () => {
+        // 1. Remove Scroll Lock
+        d3.select("html").style("overflow", "auto").style("height", "auto");
+
+        // 2. Send Background screen to back
+        d3.select('#timeline-popup-bg')
+          .transition()
+          .duration(200)
+          .style("opacity", "0")
+          .style("z-index", -10);
+
+        // 3. Send popup to back
+        d3.select('#timeline-popup-content')
+          .transition()
+          .duration(200)
+          .style("opacity", "0")
+          .style("z-index", -10);
+      }
+
+      const loadDataIntoPopup = (d) => {
+        //1. Load popup title
+        d3.select("#timeline-popup-title")
+          .text(d.data.name + " (" + d.data.count + ")");
+
+        //2. Load Artists name on left menu
+        loadPopupLeft(d.data.leaves);
+      }
+
       return svg.node();
     }
   }, [data]);
@@ -159,7 +324,7 @@ const Timeline = () => {
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
       <h4 className='title'>Click on each year to see which lyrics by category were altered the most that year.</h4>
-      <div className="timeline-container">
+      <div id="timeline-wrapper" className="timeline-container">
         <svg
           className="d3-component"
           width="100%"
