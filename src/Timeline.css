@@ -47,14 +47,17 @@
     position: sticky;
 }
 
-.timeline-popup-left {
-    min-width: fit-content;
-    overflow: scroll;
-}
-
-.timeline-popup-left-title {
+.timeline-popup-subtitle {
+    background-color: lightgray;
     text-align: center;
     margin: 0 0 8px 0;
+    position: sticky;
+    top: 0;
+}
+
+.timeline-popup-left {
+    min-width: fit-content;
+    overflow: auto;
 }
 
 .timeline-popup-left-item {
@@ -80,8 +83,7 @@
 }
 
 .timeline-popup-right {
-    background-color: orange;
-    overflow-y: auto;
+    overflow: auto;
     margin-left: 24px;
     width: 100%;
 }

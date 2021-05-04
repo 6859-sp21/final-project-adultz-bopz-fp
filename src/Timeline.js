@@ -229,18 +229,23 @@ const Timeline = () => {
 
         // 1. Clear any existing artist HTML nodes
         d3.selectAll('.timeline-popup-left-item').remove();
-        d3.selectAll('.timeline-popup-left-title').remove();
+        d3.selectAll('.timeline-popup-subtitle').remove();
 
-        // 1.5 Add header 
+        // 2 Add header 
         d3.select('.timeline-popup-left')
           .append("h4")
-          .attr("class", "timeline-popup-left-title")
+          .attr("class", "timeline-popup-subtitle")
           .text("Artists")
+
+        d3.select('.timeline-popup-right')
+          .append("h4")
+          .attr("class", "timeline-popup-subtitle")
+          .text("Lyrics")
           
-        // 2. Get unique artists
+        // 3. Get unique artists
         let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort();
         
-        // 3. Map artist names to HTML elements
+        // 4. Map artist names to HTML elements
         artists.map((artistData, index) => {
           d3.select('.timeline-popup-left')
             .append('div')
@@ -265,7 +270,7 @@ const Timeline = () => {
         // 1. Clear any existing artist HTML nodes
         d3.selectAll('.timeline-popup-right-item').remove();
 
-        // 2. Map songs to HTML elements
+        // 3. Map songs to HTML elements
         songs.map((songData, index) => {
           d3.select('.timeline-popup-right')
             .append('div')
