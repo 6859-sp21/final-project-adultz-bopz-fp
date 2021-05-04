@@ -3,7 +3,7 @@ import { genTimelineData } from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
-import { COUNT_BY_YEAR, COLORS } from "./utils/utilities";
+import { CUTS_VERSE, COUNT_BY_YEAR, COLORS } from "./utils/utilities";
 
 const MAX_YEAR = 2019;
 
@@ -237,7 +237,6 @@ const Timeline = () => {
           .attr("class", "timeline-popup-left-title")
           .text("Artists")
           
-
         // 2. Get unique artists
         let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort();
         
@@ -271,8 +270,18 @@ const Timeline = () => {
           d3.select('.timeline-popup-right')
             .append('div')
             .attr("class", "timeline-popup-right-item")
-            .attr("id", "timeline-popup-right-" + index)
-            .text(JSON.stringify(songData));
+            .attr("id", "timeline-popup-right-item-" + index)
+
+          let ogLyric = "Original Lyric: " + songData.ogLyric;
+          let kbLyric = songData.kbLyric === CUTS_VERSE ? CUTS_VERSE : "Kidz Bop Lyric: " + songData.kbLyric;  
+
+          let ref = d3.select('#timeline-popup-right-item-' + index);
+          ref.append("div").text(ogLyric);
+          ref.append("div")
+             .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
+             .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
+             .text(kbLyric)
+
         });
         
       }
