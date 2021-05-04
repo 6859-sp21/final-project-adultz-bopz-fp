@@ -123,6 +123,7 @@ const Timeline = () => {
 
       leaf
         .append("rect")
+        .attr("class", "timeline-rect")
         .attr("fill", (d) => COLORS[d.parent.data.name])
         .attr("width", (d) => d.x1 - d.x0)
         .attr("height", (d) => d.y1 - d.y0)
@@ -228,6 +229,14 @@ const Timeline = () => {
 
         // 1. Clear any existing artist HTML nodes
         d3.selectAll('.timeline-popup-left-item').remove();
+        d3.selectAll('.timeline-popup-left-title').remove();
+
+        // 1.5 Add header 
+        d3.select('.timeline-popup-left')
+          .append("h4")
+          .attr("class", "timeline-popup-left-title")
+          .text("Artists")
+          
 
         // 2. Get unique artists
         let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist));
@@ -311,7 +320,7 @@ const Timeline = () => {
       const loadDataIntoPopup = (d) => {
         //1. Load popup title
         d3.select("#timeline-popup-title")
-          .text(d.data.name + " (" + d.data.count + ")");
+          .text("Altered lyrics with '" + d.data.name + "' from " + year);
 
         //2. Load Artists name on left menu
         loadPopupLeft(d.data.leaves);
