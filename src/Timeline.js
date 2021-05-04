@@ -389,6 +389,14 @@ const Timeline = () => {
         loadPopupLeft(d.data.leaves);
       }
 
+      const handleEscape = (e) => {
+        if(e.key === "Escape"){
+          const isModalOpen = d3.select("#timeline-popup-content").style("z-index") >= 0;
+          isModalOpen && closeModal();
+        }
+      }
+      document.addEventListener("keydown", handleEscape);
+
       return svg.node();
     }
   }, [data]);
