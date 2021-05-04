@@ -173,12 +173,13 @@ const Timeline = () => {
         .append("div")
         .attr("id", "timeline-popup-content")
         .attr("class", "timeline-popup-box")
+        .style("z-index", "-10")
         .style("position", "fixed")
         .style("left", "10vw")
         .style("top", "10vh")
         .style("height", "calc(80vh - 64px)")
         .style("width", "calc(80vw - 64px)")
-        .style("opacity", "0")
+        .style("opacity", "0");
 
       // Create Popup title
       d3.select("#timeline-popup-content")
