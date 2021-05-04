@@ -30,6 +30,7 @@
 
 .timeline-popup-box {
     border-radius: 15px;
+    box-shadow: 0 0 40px -10px black;
 }
 
 .timeline-popup-button:hover {
@@ -128,4 +129,10 @@
 
 .timeline-popup-right-lyric-item:not(:last-child) {
     border-bottom: 1px solid gray;
+}
+
+#timeline-popup-button {
+    background-image: url("./gifs/close-button.png");
+    background-size: 24px 24px;
+    box-shadow: 0 0 20px -1px black;
 }

@@ -226,7 +226,6 @@ const Timeline = () => {
         .style("top", "-8px")
         .style("min-width", "24px")
         .style("min-height", "24px")
-        .style("background-color", "red")
         .style("text-align", "center")
         .style("border-radius", "50%")
         .on("click", (e) => {
