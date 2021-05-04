@@ -81,9 +81,9 @@
 
 .timeline-popup-right {
     background-color: orange;
-    overflow-x: scroll;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-left: 24px;
+    width: 100%;
 }
 
 .timeline-popup-right-item {
