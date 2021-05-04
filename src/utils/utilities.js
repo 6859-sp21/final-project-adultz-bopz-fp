@@ -87,3 +87,12 @@ export const COLORS = {
   other: "#596066",
   violence: "#FF5630",
 };
+
+export const TEXT_COLORS = {
+  "alcohol & drugs": "white",
+  identity: "black",
+  sexual: "black",
+  profanity: "black",
+  other: "white",
+  violence: "black",
+};

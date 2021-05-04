@@ -3,7 +3,7 @@ import { genTimelineData } from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
-import { CUTS_VERSE, COUNT_BY_YEAR, COLORS } from "./utils/utilities";
+import { CUTS_VERSE, COUNT_BY_YEAR, COLORS, TEXT_COLORS } from "./utils/utilities";
 
 const MAX_YEAR = 2019;
 
@@ -375,6 +375,7 @@ const Timeline = () => {
 
         d3.select(".timeline-popup-header")
           .style("background-color", COLORS[d.data.category])
+          .style("color", TEXT_COLORS[d.data.category]);
 
         //1. Load popup title
         d3.select("#timeline-popup-title")
