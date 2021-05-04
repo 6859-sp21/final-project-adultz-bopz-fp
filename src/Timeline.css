@@ -104,11 +104,13 @@
 }
 
 .timeline-popup-right-lyric-section {
-    background-color: red;
+    margin: 0 32px;
 }
 
 .timeline-popup-right-lyric-item {
-    margin: 0 32px;
-    padding: 8px 0;
-    border-bottom: 1px solid black;
+    padding: 16px 0;
+}
+
+.timeline-popup-right-lyric-item:not(:last-child) {
+    border-bottom: 1px solid gray;
 }
