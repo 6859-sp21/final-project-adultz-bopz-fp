@@ -184,11 +184,20 @@ const Timeline = () => {
 
       // Create Popup title
       d3.select("#timeline-popup-content")
-        .append("h3")
+        .append("div")
+        .attr("class", "timeline-popup-header")
+        .style("padding-top", "12px")
+        .style("border-radius", "12px");
+        
+      d3.select(".timeline-popup-header")
+        .append("h2")
         .attr("id", "timeline-popup-title")
         .attr("class", "timeline-popup-title")
-        .style("color", "black")
-        .style("text-align", "center");
+
+      d3.select(".timeline-popup-header")
+        .append("h3")
+        .attr("id", "timeline-popup-category")
+        .attr("class", "timeline-popup-category")
 
       // Create Popup body
       d3.select("#timeline-popup-content")
@@ -244,7 +253,9 @@ const Timeline = () => {
           .text("Songs")
           
         // 3. Get unique artists
-        let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort();
+        let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort((a, b) => {
+          return b[1].length - a[1].length;
+        });
         
         // 4. Map artist names to HTML elements
         artists.map((artistData, index) => {
@@ -252,7 +263,7 @@ const Timeline = () => {
             .append('div')
             .attr("class", "timeline-popup-left-item")
             .attr("id", "timeline-popup-left-" + index)
-            .text(artistData[0])
+            .text(artistData[0] + " (" + artistData[1].length + ")")
             .on("click", (e) => {
               e.preventDefault();
               d3.selectAll(".timeline-popup-right-song-title").remove();
@@ -273,7 +284,7 @@ const Timeline = () => {
         d3.selectAll('.timeline-popup-right-song-section').remove();
 
         // 2. Group by song name
-        let uniqueSongs = Array.from(d3.group(allSongs, (d) => d.songName)).sort();
+        let uniqueSongs = Array.from(d3.group(allSongs, (d) => d.songName)).sort((a, b) => a[0] < b[0]);
 
         // 3. Map songs to HTML elements
         uniqueSongs.map((songData, index) => {
@@ -362,9 +373,17 @@ const Timeline = () => {
       }
 
       const loadDataIntoPopup = (d) => {
+
+        d3.select(".timeline-popup-header")
+          .style("background-color", COLORS[d.data.category])
+
         //1. Load popup title
         d3.select("#timeline-popup-title")
           .text("Altered lyrics with '" + d.data.name + "' from " + year);
+
+        d3.select("#timeline-popup-category")
+          .style("background-color", COLORS[d.data.category])
+          .text("Category: " + d.data.category)
 
         //2. Load Artists name on left menu
         loadPopupLeft(d.data.leaves);

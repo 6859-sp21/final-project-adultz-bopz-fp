@@ -40,18 +40,31 @@
     display: flex;
     margin: 0 24px 24px 24px;
     max-width: 100%;
-    max-height: calc(100% - 3.2em - 32px);
+    max-height: calc(100% - 3.2em - 56px);
+}
+
+.timeline-popup-header {
+    text-align: center;
+    color: black;
+    margin-bottom: 12px;
 }
 
 .timeline-popup-title {
     position: sticky;
     z-index: 12;
+    margin: 0;
+}
+
+.timeline-popup-category {
+    background-color: red;
+    padding: 0 0 8px 0;
+    margin: 0;
 }
 
 .timeline-popup-subtitle {
     background-color: lightgray;
     text-align: center;
-    margin: 0 0 8px 0;
+    margin: 0;
     padding-bottom: 8px;
     position: sticky;
     top: 0;
@@ -101,6 +114,8 @@
     width: calc(100% - 16px);
     background-color: gray;
     color: white;
+    position: sticky;
+    top: 26px;
 }
 
 .timeline-popup-right-lyric-section {
