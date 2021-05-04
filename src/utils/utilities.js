@@ -1,3 +1,5 @@
+export const CUTS_VERSE = "cuts verse";
+
 export const COUNT_BY_YEAR = {
   '2001': {
     max: 1,
@@ -84,4 +86,13 @@ export const COLORS = {
   profanity: "#FFAB00",
   other: "#596066",
   violence: "#FF5630",
+};
+
+export const TEXT_COLORS = {
+  "alcohol & drugs": "white",
+  identity: "black",
+  sexual: "black",
+  profanity: "black",
+  other: "white",
+  violence: "black",
 };
