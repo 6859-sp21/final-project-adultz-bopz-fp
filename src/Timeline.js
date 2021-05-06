@@ -265,6 +265,14 @@ const Timeline = () => {
             .text(artistData[0] + " (" + artistData[1].length + ")")
             .on("click", (e) => {
               e.preventDefault();
+              // Remove previous
+              let selected = d3.select(".timeline-popup-left-item-selected").node();
+              if( selected ) {
+                d3.select(".timeline-popup-left-item-selected").attr("class", "timeline-popup-left-item");
+              }
+              // Add new
+              d3.select("#timeline-popup-left-" + index).attr("class", "timeline-popup-left-item timeline-popup-left-item-selected");
+
               d3.selectAll(".timeline-popup-right-song-title").remove();
               d3.selectAll(".timeline-popup-right-lyric-section").remove();
               loadPopupRight(artistData[1]);
@@ -275,6 +283,7 @@ const Timeline = () => {
         let firstArtistData = artists[0];
         let songDataFromFirstArtist = firstArtistData[1];
         loadPopupRight(songDataFromFirstArtist);
+        d3.select("#timeline-popup-left-0").attr("class", "timeline-popup-left-item timeline-popup-left-item-selected")
       }
 
       const loadPopupRight = (allSongs) => {
