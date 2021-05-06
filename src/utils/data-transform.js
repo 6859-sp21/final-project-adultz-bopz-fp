@@ -159,3 +159,9 @@ const getFormattedKBLyricAsHTML = (ogLyricWordObj, kbLyricWordArray) => {
     })
     .join(" ");
 };
+
+
+export const compareLyricsInTimeline = (lyricData) => {
+  let { badword, ogLyric, kbLyric } = lyricData;
+  return compareLyrics(badword, ogLyric, kbLyric);
+}

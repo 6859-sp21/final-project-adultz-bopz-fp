@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { genTimelineData } from "./utils/data-transform";
+import { genTimelineData, compareLyricsInTimeline } from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
@@ -280,18 +280,23 @@ const Timeline = () => {
               .attr("id", "timeline-popup-right-lyric-item-" + index + "-" + subIndex)
 
             let kbLyric = lyricData.kbLyric === CUTS_VERSE ? CUTS_VERSE : "Kidz Bop Lyric: " + lyricData.kbLyric;
+
+            let comparedLyrics = compareLyricsInTimeline(lyricData);
             childContainer.append("div")
                           .style("width", "45%")
                           .append("i").text(lyricData.ogArtist)
-                          .append("div").attr("class", "Bubbles-ogLyric").style("font-style","normal").text(lyricData.ogLyric);
-            childContainer.append("b").attr("class", "Bubbles-arrow").style("padding-top", "4px").text("\u2192")
-            childContainer.append("div").style("display", "flex")
+                          .append("div").attr("class", "Bubbles-ogLyric").style("font-style","normal")
+                          .html(comparedLyrics.ogLyricHTML)
+            
+                          childContainer.append("b").attr("class", "Bubbles-arrow").style("padding-top", "4px").text("\u2192")
+            
+                          childContainer.append("div").style("display", "flex")
                           .style("width", "45%")
                           .append("i").style("text-align", "right").style("width", "100%").text("Kidz Bop")
                           .append("div").attr("class", "Bubbles-kbLyric")
-              .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
-              .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
-              .text(lyricData.kbLyric)
+                          .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
+                          .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
+                          .html(comparedLyrics.kbLyricHTML);
           })
         });        
       }
