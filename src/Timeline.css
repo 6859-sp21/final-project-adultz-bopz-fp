@@ -46,7 +46,6 @@
 
 .timeline-popup-header {
     text-align: center;
-    color: black;
     margin-bottom: 12px;
 }
 
@@ -57,42 +56,59 @@
 }
 
 .timeline-popup-category {
-    background-color: red;
-    padding: 0 0 8px 0;
+    padding: 8px;
     margin: 0;
 }
 
+.circle {
+    width: 12px;
+    max-width: 12px;
+    max-height: 12px;
+    min-width: 12px;
+    min-height: 12px;
+    height: 12px;
+    border-radius: 12px;
+    margin: 0px 12px;
+}
+
+.Timeline-legend {
+    display: flex;
+    flex-direction: column;
+    margin-right: 24px;
+}
+
+.Timeline-legend-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px;
+}
+
 .timeline-popup-subtitle {
-    background-color: lightgray;
+    color: var(--light-text);
+    background-color: var(--dark-secondary);
+    border-bottom: 2px solid #fff6;
     text-align: center;
     margin: 0;
     padding-bottom: 8px;
     position: sticky;
     top: 0;
-    z-index: 12;
+    z-index: 18;
 }
 
 .timeline-popup-left {
-    min-width: fit-content;
     overflow: auto;
+    width: 30%
 }
 
 .timeline-popup-left-item {
     border-radius: 8px;
     margin: 8px;
     padding: 8px;
-    box-shadow: 0 0 6px -1px rgb(130, 130, 130);
-    background-color: white;
     transition: all 0.2s ease-in-out;
-}
-
-.timeline-popup-left-item:hover {
-    color: white;
-    background-color: black;
-}
-
-.timeline-popup-left-item-selected {
-    background-color: orange;
+    color: var(--dark);
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .timeline-popup-left-item:hover {
@@ -113,28 +129,30 @@
     padding: 8px;
     font-weight: bold;
     width: calc(100% - 16px);
-    background-color: gray;
+    background-color: var(--dark-purple);
     color: white;
     position: sticky;
     top: 26px;
+    z-index: 15;
 }
 
 .timeline-popup-right-lyric-section {
-    margin: 0 32px;
+    margin: 0 16px;
 }
 
 .timeline-popup-right-lyric-item {
-    padding: 16px 0;
+    display: flex;
+    flex-direction: row;
+    color: var(--light-text);
+    justify-content: space-between;
+    padding: 12px 0px;
 }
 
 .timeline-popup-right-lyric-item:not(:last-child) {
-    border-bottom: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
 }
 
 #timeline-popup-button {
-    background-position: center;
-    background-color: black;
-    background-image: url("./gifs/close-button.png");
-    background-size: 20px 20px;
-    box-shadow: 0 0 20px -1px black;
+    font-size: 1.5em;
+    z-index: 13;
 }

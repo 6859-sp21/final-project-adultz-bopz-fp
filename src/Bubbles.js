@@ -183,10 +183,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
       // glow
       const defs = svg.append("defs");
       const filter = defs.append("filter").attr("id", "glow");
-      filter
-        .append("feGaussianBlur")
-        .attr("stdDeviation", "2")
-        .attr("result", "coloredBlur");
+      filter.append("feGaussianBlur").attr("stdDeviation", "2").attr("result", "coloredBlur");
       const feMerge = filter.append("feMerge");
       feMerge.append("feMergeNode").attr("in", "coloredBlur");
       feMerge.append("feMergeNode").attr("in", "SourceGraphic");
@@ -205,15 +202,9 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .attr("fill", "transparent")
         .style("display", (d) => (d.parent === root ? "inline" : "none"))
         .on("mouseover", (e, d) => {
-          d3.select(e.target)
-            .attr("stroke-width", 4)
-            .style("filter", "url(#glow)");
+          d3.select(e.target).attr("stroke-width", 4).style("filter", "url(#glow)");
           if (!shouldShowLabel(d)) {
-            d3.select("#tooltip")
-              .transition()
-              .duration(200)
-              .style("opacity", 1)
-              .text(d.data.name);
+            d3.select("#tooltip").transition().duration(200).style("opacity", 1).text(d.data.name);
           }
         })
         .on("mousemove", (e) => {
@@ -293,7 +284,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .style("position", "absolute")
         .style("right", "12px")
         .style("top", "12px")
-        .text("x")
+        .text("\u00d7")
         .on("click", () => {
           // Close lyric pop-up
           closeLyrics();
@@ -305,15 +296,19 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .style("text-align", "center")
         .attr("id", "lyrics-title");
 
-      d3.select("#lyrics")
-        .append("p")
-        .style("text-align", "center")
-        .attr("id", "lyrics-year");
-
-      d3.select("#lyrics")
+      d3.select("body")
         .append("div")
-        .style("text-align", "center")
-        .attr("id", "lyrics-legend");
+        .attr("id", "lyric-popup-bg")
+        .style("background-color", "black")
+        .style("height", "100vh")
+        .style("width", "100vw")
+        .style("position", "fixed")
+        .style("top", "0px")
+        .style("left", "0px")
+        .style("opacity", "0")
+        .style("z-index", "-11");
+
+      d3.select("#lyrics").append("p").style("text-align", "center").attr("id", "lyrics-year");
 
       d3.select("#lyrics").append("div").attr("id", "lyrics-content");
 
@@ -328,6 +323,8 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   }, [root]);
 
   const closeLyrics = () => {
+    d3.select("html").style("overflow", "auto").style("height", "auto");
+    d3.select("#lyric-popup-bg").style("opacity", "0").style("z-index", "-11");
     d3.select("#lyrics")
       .transition()
       .duration(200)
@@ -374,12 +371,12 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
 
   // Function to transform data into HTML content
   const generateLyricPopup = (data) => {
+    d3.select("html").style("overflow", "hidden").style("height", "100%");
+    d3.select("#lyric-popup-bg").style("z-index", "8").style("opacity", "0.6");
     // Merge all lyrics together
     const innerHTML = data.children
       .map((child) => {
-        return (
-          '<div class="Bubbles-lyricRow">' + generateLyricRow(child) + "</div>"
-        );
+        return '<div class="Bubbles-lyricRow">' + generateLyricRow(child) + "</div>";
       })
       .join("");
 
@@ -394,17 +391,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
       .text(songTitle);
 
     // Fill in year of lyric popup
-    d3.select("#lyrics-year")
-      .style("margin-top", 0)
-      .style("margin-bottom", 0)
-      .text(releasedYear);
-
-    // Fill in legend of lyric popup
-    const legend = d3.select("#lyrics-legend")
-                     .style("margin-top", 0)
-                     .style("margin-bottom", "8px")
-                  
-      
+    d3.select("#lyrics-year").style("margin-top", 0).style("margin-bottom", 0).text(releasedYear);
 
     // Fill in content of lyric popup
     d3.select("#lyrics-content").html(innerHTML);

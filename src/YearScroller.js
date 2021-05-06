@@ -13,9 +13,10 @@ const YearScroller = ({ year, onChange }) => {
   };
   return (
     <div className="year-scroller">
-      {range(MIN_YEAR, MAX_YEAR).map((yr) => {
+      {range(MIN_YEAR, MAX_YEAR).map((yr, idx) => {
         return (
           <div
+            id={"yearscroller-id-" + idx}
             className={cx("single-year", { selected: year === yr })}
             onClick={() => onChange(yr)}
           >
