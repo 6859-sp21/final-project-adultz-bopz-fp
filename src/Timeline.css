@@ -78,24 +78,21 @@
 }
 
 .timeline-popup-left-item {
-    padding: 16px;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+    box-shadow: 0 0 6px -1px rgb(130, 130, 130);
     background-color: white;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .timeline-popup-left-item:hover {
-    background-color: gray;
     color: white;
+    background-color: black;
 }
 
 .timeline-popup-left-item-selected {
-    background-color: black;
-    color: white;
-}
-
-.timeline-popup-left-item-selected:hover {
-    background-color: black;
-    color: white;
+    background-color: orange;
 }
 
 .timeline-popup-left-item:hover {
