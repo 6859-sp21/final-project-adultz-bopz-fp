@@ -11,6 +11,9 @@ export const IntroStep = () => (
       An interactive data visualization tool to understand how Kidz Bop alters
       or censors pop music for kids.
     </div>
+    <div className="notice">
+      Note: The following visualizations include curse words and are censored by default, but you can explore the content and language. 
+    </div>
   </div>
 );
 
