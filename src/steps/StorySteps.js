@@ -3,6 +3,7 @@ import Demo0 from "../gifs/demo0.gif";
 import Demo1 from "../gifs/demo1.gif";
 import Demo2 from "../gifs/demo2.gif";
 import Demo3 from "../gifs/demo3.gif";
+import { Link } from "react-router-dom";
 
 export const IntroStep = () => (
   <div className="IntroStep">
@@ -12,8 +13,10 @@ export const IntroStep = () => (
       or censors pop music for kids.
     </div>
     <div className="notice">
-      Note: The following visualizations include curse words and are censored by default, but you can explore the content and language. 
+      Note: The following visualizations include curse words and are censored by
+      default, but you can explore the content and language.
     </div>
+    <Link to="/about">View our project page here.</Link>
   </div>
 );
 
@@ -46,7 +49,7 @@ export const Step2 = () => (
 );
 
 export const Step2a = () => (
-  <div className='Step2'>
+  <div className="Step2">
     <h2 className="Step2-p">
       All the songs by a certain artist are grouped together in a bubble with a
       label of their name. For smaller artists, you can hover over their bubble
@@ -57,7 +60,7 @@ export const Step2a = () => (
 );
 
 export const Step2b = () => (
-  <div className='Step2'>
+  <div className="Step2">
     <h2 className="Step2-p">
       Clicking on an artists bubble takes you inside to show all the songs by a
       certain artist grouped by their altered or censored word.
@@ -67,7 +70,7 @@ export const Step2b = () => (
 );
 
 export const Step2c = () => (
-  <div className='Step2'>
+  <div className="Step2">
     <h2 className="Step2-p">
       Clicking on an word bubble shows all the songs from that artist with the
       censored word you clicked.
@@ -77,7 +80,7 @@ export const Step2c = () => (
 );
 
 export const Step2d = () => (
-  <div className='Step2'>
+  <div className="Step2">
     <h2 className="Step2-p">
       You can click on each song to reveal the original and Kids Bop lyrics.
     </h2>
