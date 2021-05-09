@@ -2,8 +2,9 @@ import React from "react";
 import cx from "classnames";
 import "./YearScroller.css";
 
-const MIN_YEAR = 2001;
-const MAX_YEAR = 2019;
+export const MIN_YEAR = 2001;
+export const MAX_YEAR = 2019;
+export const ALL_YEARS = -1;
 
 const YearScroller = ({ year, onChange }) => {
   const range = (start, end) => {
@@ -13,6 +14,13 @@ const YearScroller = ({ year, onChange }) => {
   };
   return (
     <div className="year-scroller">
+      <div
+        id="yearscroller-id-all"
+        className={cx("single-year", { selected: year === ALL_YEARS })}
+        onClick={() => onChange(ALL_YEARS)}
+      >
+        All years
+      </div>
       {range(MIN_YEAR, MAX_YEAR).map((yr, idx) => {
         return (
           <div
