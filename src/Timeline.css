@@ -156,3 +156,21 @@
     font-size: 1.5em;
     z-index: 13;
 }
+
+.profanity-container {
+    text-align: center;
+    margin: 12px auto;
+}
+
+.timeline-profanity-ack {
+    position: relative;
+    bottom: 1em;
+    opacity: 0.7;
+}
+
+.timeline-profanity-ack-link {
+    text-decoration: none;
+    text-decoration-line: underline;
+    color: var(--light-text);
+    font-weight: bold;
+}

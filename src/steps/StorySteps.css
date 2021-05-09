@@ -15,6 +15,11 @@
     font-size: 24px;
 }
 
+.notice {
+    margin-top: 1em;
+    font-style: italic;
+}
+
 .center-image {
     margin: auto;
     display: block;
