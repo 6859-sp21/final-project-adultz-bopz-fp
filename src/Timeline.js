@@ -3,7 +3,7 @@ import { genTimelineData, compareLyricsInTimeline } from "./utils/data-transform
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
-import { CUTS_VERSE, COUNT_BY_YEAR, COLORS } from "./utils/utilities";
+import { CUTS_VERSE, COUNT_BY_YEAR, COLORS, purify } from "./utils/utilities";
 
 const MAX_YEAR = 2019;
 
@@ -12,6 +12,7 @@ const Timeline = () => {
   const [year, setYear] = useState(MAX_YEAR);
   const [rawData, setRawData] = useState(null);
   const [data, setData] = useState(null);
+  const [hideProfanity, setHideProfanity] = useState(true);
 
   const d3Container = useRef(null);
   const width = 1200;
@@ -162,7 +163,8 @@ const Timeline = () => {
 
       leaf
         .append("text")
-        .text((d) => d.data.name)
+        .text((d) => hideProfanity ? purify(d.data.name) : d.data.name )
+        .attr("id", (d) => "word-label-" + d.data.name + "-" + d.data.count + "-" + year)
         .attr("fill", (_) => "var(--light-text)")
         .attr("x", 3)
         .attr("y", "1em")
@@ -437,10 +439,24 @@ const Timeline = () => {
     }
   }, [data]);
 
+
+  useEffect(() => {
+    d3.selectAll("*[id^='word-label']")
+      .text((d) => hideProfanity ? purify(d.data.name) : d.data.name)
+  }, [hideProfanity])
+
+  const toggleProfanity = () => {
+    setHideProfanity(!hideProfanity);
+  }
+
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
       <h4 className='title'>Click on each year to see which lyrics by category were altered the most that year.</h4>
+      <div className="profanity-container">
+        <input type="checkbox" checked={hideProfanity} onChange={toggleProfanity} id="profanity-toggle"></input>
+        <label for="profanity-toggle">Hide Curse Words</label>
+      </div>
       <div id="timeline-wrapper" className="timeline-container">
         <svg
           className="d3-component"

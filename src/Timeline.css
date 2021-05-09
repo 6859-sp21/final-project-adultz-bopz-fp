@@ -156,3 +156,8 @@
     font-size: 1.5em;
     z-index: 13;
 }
+
+.profanity-container {
+    text-align: center;
+    margin: 12px auto;
+}

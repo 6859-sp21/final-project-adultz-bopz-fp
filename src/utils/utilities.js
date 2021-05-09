@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import profanity from "profanity-util";
 
 export const CUTS_VERSE = "cuts verse";
 
@@ -89,3 +90,8 @@ export const COLORS = {
   other: d3.scaleSequential(d3.interpolate("#c2cfd8",  "#596066")).domain([1, 10]),
   violence: d3.scaleSequential(d3.interpolate("#ffbeb0",  "#FF5630")).domain([1, 10]),
 };
+
+
+export const purify = (wordInput) => {
+  return profanity.purify(wordInput)[0];
+}
