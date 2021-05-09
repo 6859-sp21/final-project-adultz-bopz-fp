@@ -18,6 +18,7 @@
 .notice {
     margin-top: 1em;
     font-style: italic;
+    opacity: 50%;
 }
 
 .center-image {

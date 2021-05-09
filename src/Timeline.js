@@ -5,11 +5,8 @@ import "./Timeline.css";
 import YearScroller from "./YearScroller";
 import { CUTS_VERSE, COUNT_BY_YEAR, COLORS, purify } from "./utils/utilities";
 
-const MAX_YEAR = 2019;
-
-
 const Timeline = () => {
-  const [year, setYear] = useState(MAX_YEAR);
+  const [year, setYear] = useState(2019);
   const [rawData, setRawData] = useState(null);
   const [data, setData] = useState(null);
   const [hideProfanity, setHideProfanity] = useState(true);
@@ -19,6 +16,12 @@ const Timeline = () => {
   const height = 900;
 
   useEffect(() => {
+    const initData = async () => {
+      const res = await genTimelineData();
+      setRawData(res);
+      const filtered = filterByYear(year, res);
+      setData(treemap(filtered));
+    };
     initData();
   }, []);
 
@@ -36,15 +39,12 @@ const Timeline = () => {
     return d3.scaleLinear().domain([minCountForYear, maxCountForYear]).range([16, 48])(count);
   } 
 
-  const initData = async () => {
-    const res = await genTimelineData();
-    setRawData(res);
-    const filtered = filterByYear(year, res);
-    setData(treemap(filtered));
-  };
+  const fixProfanity = (text) => {
+    return hideProfanity ? purify(text) : text
+  }
 
   const filterByYear = (filterYear, rawData) => {
-    return rawData.children.filter(({ year }) => year === filterYear)[0];
+    return rawData.children.filter(({ year }) => filterYear === -1 ? true: year === filterYear)[0];
   };
 
   const treemap = (data) =>
@@ -64,24 +64,29 @@ const Timeline = () => {
     const getLegendTitleInfo = (categoryName) => {
       let categoryData = data.children.filter((item) => item.data.name === categoryName)[0];
       let count = categoryData ? categoryData.children.reduce((sum, item) => sum + item.data.count, 0) : 0;
-      let titleText = categoryName + ' (' + count + ')';
+      let titleText = categoryName;
       let titleOpacity = (categoryData) ? 1 : 0.6;
 
-      return {text: titleText, opacity: titleOpacity};
+      return {text: titleText, opacity: titleOpacity, count: count, category: categoryName};
     }
 
     if (data) {
       return (
         <div className="Timeline-legend">
-          {Object.entries(COLORS).map(([category, color], i) => {
-            let legendTextInfo = getLegendTitleInfo(category); // returns a tuple with text at index 0, and opacity at index 1
-            return (
-              <div className="Timeline-legend-item">
-                <div className="circle" style={{ backgroundColor: color(10) }}/>
-                <div style={{ opacity: legendTextInfo.opacity || 1, whiteSpace: "nowrap" }}>{legendTextInfo.text || category}</div>
-              </div>
-            );
-          })}
+          {Object.entries(COLORS).map(([category, color], i) => { return getLegendTitleInfo(category); }) // returns a tuple with text at index 0, and opacity at index 1
+            .sort((a, b) => { return b.count - a.count })
+            .map((legendTextInfo) => {
+              return (
+                <div className="Timeline-legend-item">
+                  <div className="circle" style={{ backgroundColor: COLORS[legendTextInfo.category](10) }}/>
+                  <div style={{ opacity: legendTextInfo.opacity || 1, whiteSpace: "nowrap" }}>
+                    {legendTextInfo.text || legendTextInfo.category}
+                    <span style={{ fontWeight: "200" }}> ({legendTextInfo.count})</span>
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
       );
     }
@@ -145,7 +150,7 @@ const Timeline = () => {
             .transition()
             .duration(200)
             .style("opacity", 1)
-            .text(`'${d.data.name}' was altered in ${d.data.count} Kids Bop lyrics`);
+            .text(`'${fixProfanity(d.data.name)}' was altered in ${d.data.count} Kids Bop lyrics`);
         })
         .on("mousemove", (e) => {
           d3.select("#tooltip")
@@ -163,7 +168,7 @@ const Timeline = () => {
 
       leaf
         .append("text")
-        .text((d) => hideProfanity ? purify(d.data.name) : d.data.name )
+        .text((d) => fixProfanity(d.data.name))
         .attr("id", (d) => "word-label-" + d.data.name + "-" + d.data.count + "-" + year)
         .attr("fill", (_) => "var(--light-text)")
         .attr("x", 3)
@@ -428,8 +433,9 @@ const Timeline = () => {
       }
 
       const handleEscape = (e) => {
-        if(e.key === "Escape"){
-          const isModalOpen = d3.select("#timeline-popup-content").style("z-index") >= 0;
+        let popupRef = d3.select("#timeline-popup-content");
+        if(e.key === "Escape" && popupRef.node() !== null){
+          const isModalOpen = popupRef.style("z-index") >= 0;
           isModalOpen && closeModal();
         }
       }
@@ -442,7 +448,18 @@ const Timeline = () => {
 
   useEffect(() => {
     d3.selectAll("*[id^='word-label']")
-      .text((d) => hideProfanity ? purify(d.data.name) : d.data.name)
+      .text((d) => fixProfanity(d.data.name));
+
+    d3.selectAll('.timeline-rect')
+      .on("mouseover", (e, d) => {
+        d3.select(e.target).attr("stroke-width", 8).attr("stroke", "var(--light-text)");
+        d3.select("#tooltip")
+          .transition()
+          .duration(200)
+          .style("opacity", 1)
+          .text(`'${fixProfanity(d.data.name)}' was altered in ${d.data.count} Kids Bop lyrics`);
+      })
+      
   }, [hideProfanity])
 
   const toggleProfanity = () => {
@@ -452,7 +469,7 @@ const Timeline = () => {
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
-      <h4 className='title'>Click on each year to see which lyrics by category were altered the most that year.</h4>
+      <div className='title'>Click on each year to see which lyrics by category were altered the most that year.</div>
       <div className="profanity-container">
         <input type="checkbox" checked={hideProfanity} onChange={toggleProfanity} id="profanity-toggle"></input>
         <label for="profanity-toggle">Hide Curse Words</label>

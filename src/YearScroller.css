@@ -11,11 +11,19 @@
     padding: 4px;
     color: #797979;
     transition: color 200ms ease-in-out;
+    white-space: nowrap;
 }
 
 .single-year:hover,
 .single-year.selected {
     color: #e0e0e0;
     cursor: pointer;
-    font-size: 20px;
+    text-shadow: 0px 0px 20px #e0e0e0;
+}
+
+.divider {
+    width: 100%;
+    border-bottom: 2px solid var(--blue);
+    opacity: 20%;
+    margin: 4px 0px;
 }

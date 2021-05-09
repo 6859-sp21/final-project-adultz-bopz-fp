@@ -6,7 +6,7 @@ import './TutorialStep.css';
 const TutorialStep = () => {
   return (
     <div className="tutorial-container">
-      <Carousel dynamicHeight={false} showStatus={false}> 
+      <Carousel dynamicHeight={false} showStatus={false} showThumbs={false}> 
         <Step2a />
         <Step2b />
         <Step2c />
