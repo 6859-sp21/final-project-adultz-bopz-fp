@@ -5,6 +5,7 @@ import BubbleStep from "./steps/BubbleStep";
 import { IntroStep } from './steps/StorySteps';
 import Timeline from './Timeline';
 import TutorialStep from "./steps/TutorialStep";
+// import Wordcloud from './Wordcloud.js';
 
 export const VIEW_ALL_OPTION = {
   label: "your favorite artist",
@@ -33,36 +34,47 @@ const App = () => {
             <IntroStep />
           </div>
         </Step>
-        <Step data={6} key={6}>
+        <Step data={1} key={1}>
           <div  
             className="App-step"
             style={{
               padding: 0,
-              opacity: currentStepIndex === 6 ? 1 : 0.2,
+              opacity: currentStepIndex === 1 ? 1 : 0.2,
             }}
           >
             <Timeline />
           </div>
         </Step>
-        <Step data={2} key={2}>
+        {/* <Step data={2} key={2}>
+          <div  
+            className="App-step"
+            style={{
+              padding: 0,
+              opacity: currentStepIndex === 2 ? 1 : 0.2,
+            }}
+          >
+            <Wordcloud />
+          </div>
+        </Step> */}
+        <Step data={3} key={3}>
           <div
             className="App-step"
             style={{
-              opacity: currentStepIndex === 2 ? 1 : 0.2,
+              opacity: currentStepIndex === 3 ? 1 : 0.2,
             }}
           >
             <TutorialStep />
           </div>
         </Step>
-        <Step data={7} key={7}>
+        <Step data={4} key={4}>
           <div
             className="App-step"
             style={{
               padding: 0,
-              opacity: currentStepIndex === 7 ? 1 : 0.2,
+              opacity: currentStepIndex === 4 ? 1 : 0.2,
             }}
           >
-            <BubbleStep shouldFocus={currentStepIndex === 6} />
+            <BubbleStep shouldFocus={currentStepIndex === 4} />
           </div>
         </Step>
       </Scrollama>
