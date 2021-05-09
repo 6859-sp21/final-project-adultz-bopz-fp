@@ -4,6 +4,10 @@ import profanity from "profanity-util";
 export const CUTS_VERSE = "cuts verse";
 
 export const COUNT_BY_YEAR = {
+  "-1": {
+    max: 32,
+    min: 1
+  },
   2001: {
     max: 1,
     min: 1,
