@@ -468,6 +468,7 @@ const Timeline = () => {
         {createLegend()}
         <YearScroller year={year} onChange={(newYear) => setYear(newYear)} />
       </div>
+      <div className="timeline-profanity-ack">Profanity Filter provided by <a class="timeline-profanity-ack-link" href="https://github.com/KanoComputing/nodejs-profanity-util" target="_blank" rel="noreferrer">KanoComputing's NodeJS Profanity Filter</a></div>
     </div>
   );
 };
