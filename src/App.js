@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./App.css";
 import { Scrollama, Step } from 'react-scrollama'
 import BubbleStep from "./steps/BubbleStep";
-import { IntroStep, Step2a, Step2b, Step2c, Step2d } from './steps/StorySteps';
+import { IntroStep } from './steps/StorySteps';
 import Timeline from './Timeline';
+import TutorialStep from "./steps/TutorialStep";
 
 export const VIEW_ALL_OPTION = {
   label: "your favorite artist",
@@ -50,37 +51,7 @@ const App = () => {
               opacity: currentStepIndex === 2 ? 1 : 0.2,
             }}
           >
-            <Step2a />
-          </div>
-        </Step>
-        <Step data={3} key={3}>
-          <div
-            className="App-step"
-            style={{
-              opacity: currentStepIndex === 3 ? 1 : 0.2,
-            }}
-          >
-            <Step2b />
-          </div>
-        </Step>
-        <Step data={4} key={4}>
-          <div
-            className="App-step"
-            style={{
-              opacity: currentStepIndex === 4 ? 1 : 0.2,
-            }}
-          >
-            <Step2c />
-          </div>
-        </Step>
-        <Step data={5} key={5}>
-          <div
-            className="App-step"
-            style={{
-              opacity: currentStepIndex === 5 ? 1 : 0.2,
-            }}
-          >
-            <Step2d />
+            <TutorialStep />
           </div>
         </Step>
         <Step data={7} key={7}>

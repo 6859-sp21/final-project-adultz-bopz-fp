@@ -24,6 +24,7 @@
     margin: auto;
     display: block;
     padding: 16px;
+    max-width: fit-content;
 }
 
 .Step2 {
