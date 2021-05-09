@@ -1,0 +1,16 @@
+.wordcloud-container {
+    max-height: 100vh;
+}
+
+.wordcloud-header {
+    margin-left: 15vw;
+}
+
+.wordcloud-viz {
+    margin: auto;
+    width: fit-content;
+}
+
+.wordcloud-checkbox {
+    margin: 12px 0;
+}

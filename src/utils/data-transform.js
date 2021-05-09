@@ -165,3 +165,8 @@ export const compareLyricsInTimeline = (lyricData) => {
   let { badword, ogLyric, kbLyric } = lyricData;
   return compareLyrics(badword, ogLyric, kbLyric);
 }
+
+export const genWordCloudData = async () => {
+  const csvData = await genRawData();
+  return d3.rollup(csvData, v => v.length, d => d.badword);
+}
