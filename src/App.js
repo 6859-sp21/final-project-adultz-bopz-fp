@@ -30,7 +30,14 @@ const App = () => {
             opacity: currentStepIndex === 0 ? 1 : 0.2,
           }}
         >
-          <div className="App-step">
+          <div 
+            className="App-step"
+            style={{
+              height: "100vh",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <IntroStep />
           </div>
         </Step>

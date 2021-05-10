@@ -16,7 +16,7 @@ export const IntroStep = () => (
       Note: The following visualizations include curse words and are censored by
       default, but you can explore the content and language.
     </div>
-    <Link to="/about">View our project page here.</Link>
+    <Link className="launch-button" to="/">View our project page here.</Link>
   </div>
 );
 
