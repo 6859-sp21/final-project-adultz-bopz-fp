@@ -7,11 +7,11 @@ const RouterWrapper = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/about">
-          <About />
+        <Route path="/app">
+          <App />
         </Route>
         <Route path="/">
-          <App />
+          <About />
         </Route>
       </Switch>
     </Router>
