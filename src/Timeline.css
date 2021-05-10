@@ -1,176 +1,181 @@
 .page-container {
-    color: var(--light-text);
-    padding: 36px;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  background-color: coral;
+  color: var(--light-text);
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
 }
 
 .title {
-    text-align: left;
-    margin-left: 5vw;
-    margin-top: 0;
+  margin: 0 24px 12px 24px;
+  text-align: left;
 }
 
 .timeline-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    min-height: 0;
+  display: flex;
+  margin: 0 24px;
+}
+
+.timeline-svg-wrapper {
+  display: flex;
+  width: 100%;
 }
 
 .legend-container {
-    padding: 0 24px;
+  padding: 0 24px;
 }
 
 .timeline-rect:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .timeline-popup-box {
-    border-radius: 15px;
-    box-shadow: 0 0 40px -10px black;
+  border-radius: 15px;
+  box-shadow: 0 0 40px -10px black;
 }
 
 .timeline-popup-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .timeline-popup-flex {
-    display: flex;
-    margin: 0 24px 24px 24px;
-    max-width: 100%;
-    max-height: calc(100% - 3.2em - 56px);
+  display: flex;
+  margin: 0 24px 24px 24px;
+  max-height: calc(100% - 3.2em - 56px);
+  max-width: 100%;
 }
 
 .timeline-popup-header {
-    text-align: center;
-    margin-bottom: 12px;
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 .timeline-popup-title {
-    position: sticky;
-    z-index: 12;
-    margin: 0;
+  margin: 0;
+  position: sticky;
+  z-index: 12;
 }
 
 .timeline-popup-category {
-    padding: 8px;
-    margin: 0;
+  margin: 0;
+  padding: 8px;
 }
 
 .circle {
-    width: 12px;
-    max-width: 12px;
-    max-height: 12px;
-    min-width: 12px;
-    min-height: 12px;
-    height: 12px;
-    border-radius: 12px;
-    margin: 0px 12px;
+  border-radius: 12px;
+  height: 12px;
+  margin: 0 12px;
+  max-height: 12px;
+  max-width: 12px;
+  min-height: 12px;
+  min-width: 12px;
+  width: 12px;
 }
 
 .Timeline-legend {
-    display: flex;
-    flex-direction: column;
-    margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 24px;
 }
 
 .Timeline-legend-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 6px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 6px;
 }
 
 .timeline-popup-subtitle {
-    color: var(--light-text);
-    background-color: var(--dark-secondary);
-    border-bottom: 2px solid #fff6;
-    text-align: center;
-    margin: 0;
-    padding-bottom: 8px;
-    position: sticky;
-    top: 0;
-    z-index: 18;
+  background-color: var(--dark-secondary);
+  border-bottom: 2px solid #fff6;
+  color: var(--light-text);
+  margin: 0;
+  padding-bottom: 8px;
+  position: sticky;
+  text-align: center;
+  top: 0;
+  z-index: 18;
 }
 
 .timeline-popup-left {
-    overflow: auto;
-    width: 30%
+  overflow: auto;
+  width: 30%;
 }
 
 .timeline-popup-left-item {
-    border-radius: 8px;
-    margin: 8px;
-    padding: 8px;
-    transition: all 0.2s ease-in-out;
-    color: var(--dark);
-    display: flex;
-    flex-wrap: wrap;
+  border-radius: 8px;
+  color: var(--dark);
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px;
+  padding: 8px;
+  transition: all 0.2s ease-in-out;
 }
 
 .timeline-popup-left-item:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .timeline-popup-right {
-    overflow: auto;
-    margin-left: 24px;
-    width: 100%;
+  margin-left: 24px;
+  overflow: auto;
+  width: 100%;
 }
 
 .timeline-popup-right-song-section {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .timeline-popup-right-song-title {
-    padding: 8px;
-    font-weight: bold;
-    width: calc(100% - 16px);
-    background-color: var(--dark-purple);
-    color: white;
-    position: sticky;
-    top: 26px;
-    z-index: 15;
+  background-color: var(--dark-purple);
+  color: white;
+  font-weight: bold;
+  padding: 8px;
+  position: sticky;
+  top: 26px;
+  width: calc(100% - 16px);
+  z-index: 15;
 }
 
 .timeline-popup-right-lyric-section {
-    margin: 0 16px;
+  margin: 0 16px;
 }
 
 .timeline-popup-right-lyric-item {
-    display: flex;
-    flex-direction: row;
-    color: var(--light-text);
-    justify-content: space-between;
-    padding: 12px 0px;
+  color: var(--light-text);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 0;
 }
 
 .timeline-popup-right-lyric-item:not(:last-child) {
-    /* border-bottom: 1px solid gray; */
+  /* border-bottom: 1px solid gray; */
 }
 
 #timeline-popup-button {
-    font-size: 1.5em;
-    z-index: 13;
+  font-size: 1.5em;
+  z-index: 13;
 }
 
 .profanity-container {
-    text-align: center;
-    margin: 12px auto;
+  margin: 12px;
+  text-align: left;
 }
 
 .timeline-profanity-ack {
-    position: relative;
-    bottom: 1em;
-    opacity: 0.7;
+  margin: 1em;
 }
 
 .timeline-profanity-ack-link {
-    text-decoration: none;
-    text-decoration-line: underline;
-    color: var(--light-text);
-    font-weight: bold;
+  color: var(--light-text);
+  font-weight: bold;
+  text-decoration: none;
+  text-decoration-line: underline;
+}
+
+.timeline-middle-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
