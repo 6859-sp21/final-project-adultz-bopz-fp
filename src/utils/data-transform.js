@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { purify } from "./utilities";
 
 export const genRawData = async () => {
   return await d3.csv(
@@ -96,7 +97,8 @@ export const genSongs = async () => {
 const compareLyrics = (badword, ogLyric, kbLyric) => {
   let ogLyricParsed = ogLyric.split(" ");
   let ogLyricObj = convertArrayToJSON(ogLyricParsed);
-  let ogLyricHTML = getFormattedOGLyricAsHTML(ogLyricParsed, badword);
+  let ogLyricHTML = getFormattedOGLyricAsHTML(ogLyricParsed, badword, false);
+  let ogLyricHTMLCensored = getFormattedOGLyricAsHTML(ogLyricParsed, badword, true);
 
   let kbLyricParsed = kbLyric.split(" ");
   let kbLyricHTML =
@@ -107,6 +109,7 @@ const compareLyrics = (badword, ogLyric, kbLyric) => {
   return {
     kbLyricHTML: "<span>" + kbLyricHTML + "</span>",
     ogLyricHTML: "<span>" + ogLyricHTML + "</span>",
+    ogLyricHTMLCensored: "<span>" + ogLyricHTMLCensored + "</span>"
   };
 };
 
@@ -115,14 +118,15 @@ const punctuationless = (s) => s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
 const convertArrayToJSON = (arr) =>
   Object.assign(...arr.map((k) => ({ [punctuationless(k)]: 0 })));
 
-const getFormattedOGLyricAsHTML = (ogLyricWordArray, badword) => {
+const getFormattedOGLyricAsHTML = (ogLyricWordArray, badword, hideProfanity) => {
   return ogLyricWordArray
     .map((ogWord) => {
+      let innerContent = (hideProfanity) ? purify(ogWord) : ogWord;
       return (
         "<span class='ogLyric-" +
         (ogWord.toLowerCase().includes(badword) ? "bad" : "good") +
         "'>" +
-        ogWord +
+        innerContent +
         "</span>"
       );
     })

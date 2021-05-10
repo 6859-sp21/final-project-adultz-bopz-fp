@@ -216,7 +216,6 @@ const Timeline = () => {
         
         // 4. Map artist names to HTML elements
         artists.map((artistData, index) => {
-          console.log(artistData);
           d3.select('.timeline-popup-left')
             .append('div')
             .attr("class", "timeline-popup-left-item")
@@ -295,7 +294,7 @@ const Timeline = () => {
                           .style("width", "45%")
                           .append("i").text(lyricData.ogArtist)
                           .append("div").attr("class", "Bubbles-ogLyric").style("font-style","normal")
-                          .html(comparedLyrics.ogLyricHTML)
+                          .html(hideProfanity ? comparedLyrics.ogLyricHTMLCensored : comparedLyrics.ogLyricHTML)
             
                           childContainer.append("b").attr("class", "Bubbles-arrow").style("padding-top", "4px").text("\u2192")
             
@@ -424,7 +423,7 @@ const Timeline = () => {
 
         //1. Load popup title
         d3.select("#timeline-popup-title")
-          .text("Altered lyrics with '" + d.data.name + "' from " + year)
+          .text("Altered lyrics with '" + ( hideProfanity ? purify(d.data.name) : d.data.name) + "' from " + year)
 
         d3.select("#timeline-popup-category")
           .text("Category: " + d.data.category)
@@ -445,7 +444,7 @@ const Timeline = () => {
 
       return svg.node();
     }
-  }, [data]);
+  }, [data, hideProfanity]);
 
 
   useEffect(() => {
