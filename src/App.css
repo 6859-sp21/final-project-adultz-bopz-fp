@@ -22,8 +22,7 @@ body {
 .App-header {
     /* font-size: 20px; */
     color: var(--light-text);
-    padding: 36px;
-    padding-bottom: 12px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +34,7 @@ body {
 }
 
 .App-escape {
-    padding: 8px;
+    margin: 8px;
     text-align: right;
     color: var(--dark-text);
 }

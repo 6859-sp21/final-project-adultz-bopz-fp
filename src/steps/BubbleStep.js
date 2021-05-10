@@ -3,6 +3,7 @@ import Select from "react-select";
 import { genArtists } from "../utils/data-transform";
 import Bubbles from '../Bubbles.js';
 import "../App.css";
+import "./BubbleStep.css"
 
 const customStyles = {
   control: (base) => ({
@@ -72,7 +73,7 @@ const BubbleStep = ({shouldFocus}) => {
   }, []);
 
   return (
-    <div>
+    <div className="Bubbles-all">
       <div className="App-escape">press ESC to zoom out</div>
       <div className="App-header">
         What's
@@ -87,7 +88,7 @@ const BubbleStep = ({shouldFocus}) => {
         />
         spitting?
       </div>
-      <div className="App-header">
+      <div className="App-header" style={{margin: 0}}>
         <Bubbles shouldFocus={shouldFocus} songOrArtist={songOrArtist} setSongOrArtist={setSongOrArtist} />
       </div>
       <div className="App-data">data from The Pudding (https://github.com/the-pudding/data/tree/master/kidz-bop)</div>
