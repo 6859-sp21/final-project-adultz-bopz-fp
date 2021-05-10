@@ -1,103 +1,103 @@
 .Bubbles-container {
-    width: 100%;
-    margin: 0 24px;
+  margin: 0 24px;
+  width: 100%;
 }
 
 .Bubbles-checkbox {
-    text-align: center;
-    margin-bottom: 12px;
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 .Bubbles-content {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  align-items: center;
+  display: flex;
+  width: 100%;
 }
 
 .Bubbles-lyricRow {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
 }
 
 .Bubbles-ogLyric,
 .Bubbles-kbLyric {
-    padding: 12px;
-    margin-top: 4px;
-    background-color: #456381;
-    border-radius: 16px;
-    color: var(--light-text);
+  background-color: #456381;
+  border-radius: 16px;
+  color: var(--light-text);
+  margin-top: 4px;
+  padding: 12px;
 }
 
 .Bubbles-kbLyric {
-    text-align: right;
+  text-align: right;
 }
 
 .Bubbles-arrow {
-    align-self: center;
-    color: var(--dark-text);
-    min-width: 40px;
-    text-align: center;
+  align-self: center;
+  color: var(--dark-text);
+  min-width: 40px;
+  text-align: center;
 }
 
 .Bubbles-layer {
-    font-weight: 200;
-    text-align: left;
-    margin-top: 0;
-    padding-left: 12px;
-    color: var(--light-text);
-    width: 300px;
+  color: var(--light-text);
+  font-weight: 200;
+  margin-top: 0;
+  padding-left: 12px;
+  text-align: left;
+  width: 300px;
 }
 
 b {
-    font-weight: 200;
+  font-weight: 200;
 }
 
 button {
-    border: none;
-    background-color: transparent;
-    font-family: "Lato";
-    color: var(--light-text);
-    cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: var(--light-text);
+  cursor: pointer;
+  font-family: "Lato";
 }
 
 .ogLyric-bad {
-    background-color: var(--dark-purple);
-    padding: 0px 4px;
-    border-radius: 2px;
+  background-color: var(--dark-purple);
+  border-radius: 2px;
+  padding: 0 4px;
 }
 
 .alcohol .ogLyric-bad {
-    background-color: #00875A;
+  background-color: #00875a;
 }
 
 .identity .ogLyric-bad {
-    background-color: #0a8ba2;
+  background-color: #0a8ba2;
 }
 
 .sexual .ogLyric-bad {
-    background-color: #C054BE;
+  background-color: #c054be;
 }
 
 .profanity .ogLyric-bad {
-    background-color: #d08b00;
+  background-color: #d08b00;
 }
 
 .other .ogLyric-bad {
-    background-color: #596066;
+  background-color: #596066;
 }
 
 .violence .ogLyric-bad {
-    background-color: #cb3d1d;
+  background-color: #cb3d1d;
 }
 
 .kblyric-different {
-    background-color: var(--light-text);
-    padding-left: 4px;
-    border-radius: 2px;
-    color: var(--dark)
+  background-color: var(--light-text);
+  border-radius: 2px;
+  color: var(--dark);
+  padding-left: 4px;
 }
 
 .kblyric-same.start {
-    padding-left: 2px;
+  padding-left: 2px;
 }

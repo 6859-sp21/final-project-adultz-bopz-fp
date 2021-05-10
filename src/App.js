@@ -5,7 +5,6 @@ import BubbleStep from "./steps/BubbleStep";
 import { IntroStep } from './steps/StorySteps';
 import Timeline from './Timeline';
 import TutorialStep from "./steps/TutorialStep";
-// import Wordcloud from './Wordcloud.js';
 
 export const VIEW_ALL_OPTION = {
   label: "your favorite artist",
@@ -52,17 +51,6 @@ const App = () => {
             <Timeline />
           </div>
         </Step>
-        {/* <Step data={2} key={2}>
-          <div  
-            className="App-step"
-            style={{
-              padding: 0,
-              opacity: currentStepIndex === 2 ? 1 : 0.2,
-            }}
-          >
-            <Wordcloud />
-          </div>
-        </Step> */}
         <Step data={3} key={3}>
           <div
             className="App-step"

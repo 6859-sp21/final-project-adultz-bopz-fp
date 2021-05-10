@@ -1,102 +1,107 @@
 .IntroStep {
-    animation: fadeIn linear 2s;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    margin: auto 15vw;
-    justify-content: center;
+  animation: fadeIn linear 2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 15vw;
+  text-align: left;
 }
 
 .header {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 24px;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 24px;
 }
 
 .desc {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .notice {
-    margin-top: 1em;
-    font-style: italic;
-    opacity: 50%;
+  font-style: italic;
+  margin-top: 1em;
+  opacity: 50%;
 }
 
 .center-image {
-    margin: auto;
-    display: block;
-    padding: 16px;
-    max-width: fit-content;
+  display: block;
+  margin: auto;
+  max-width: fit-content;
+  padding: 16px;
 }
 
 .Step2 {
-    margin: 10vh 0;
+  margin: 10vh 0;
 }
 
 .Step2-p {
-    font-size: 1.5em;
-    margin: 0 15vw 24px 15vh;
+  font-size: 1.5em;
+  margin: 0 15vw 24px 15vh;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @-moz-keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @-o-keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @-ms-keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .launch-button {
-    background-color: rgb(255, 255, 255);
-    color: black;
-    width: fit-content;
-    padding: 24px;
-    transition: all 0.2s ease-in-out;
-    border: 4px solid gray;
-    text-decoration: none;
-    margin-top: 24px;
+  background-color: rgb(255, 255, 255);
+  border: 4px solid gray;
+  color: black;
+  margin-top: 24px;
+  padding: 24px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  width: fit-content;
 }
 
 .launch-button:hover {
-    color: rgb(255, 255, 255);
-    background-color: black;
-    cursor: pointer;
+  background-color: black;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
 }
