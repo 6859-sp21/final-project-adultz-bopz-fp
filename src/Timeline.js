@@ -12,8 +12,8 @@ const Timeline = () => {
   const [hideProfanity, setHideProfanity] = useState(true);
 
   const d3Container = useRef(null);
-  const width = 1200;
-  const height = 900;
+  const width = 800;
+  const height = 500;
 
   useEffect(() => {
     const initData = async () => {
@@ -36,7 +36,7 @@ const Timeline = () => {
     let maxCountForYear = COUNT_BY_YEAR[year].max;
     let minCountForYear = COUNT_BY_YEAR[year].min;
 
-    return d3.scaleLinear().domain([minCountForYear, maxCountForYear]).range([16, 48])(count);
+    return d3.scaleLinear().domain([minCountForYear, maxCountForYear]).range([12, 28])(count);
   } 
 
   const fixProfanity = (text) => {
@@ -50,9 +50,9 @@ const Timeline = () => {
   const treemap = (data) =>
     d3
       .treemap()
-      .tile(d3.treemapResquarify)
+      .tile(d3.treemapSquarify)
       .size([width, height])
-      .padding(1)
+      .paddingInner(3)
       .round(true)(
       d3
         .hierarchy(data)
@@ -145,7 +145,7 @@ const Timeline = () => {
         .attr("width", (d) => d.x1 - d.x0)
         .attr("height", (d) => d.y1 - d.y0)
         .on("mouseover", (e, d) => {
-          d3.select(e.target).attr("stroke-width", 8).attr("stroke", "var(--light-text)");
+          d3.select(e.target).attr("stroke-width", 3).attr("stroke", "var(--light-text)");
           d3.select("#tooltip")
             .transition()
             .duration(200)
@@ -168,7 +168,7 @@ const Timeline = () => {
 
       leaf
         .append("text")
-        .text((d) => fixProfanity(d.data.name))
+        .text((d) => shouldShowLabel(d) ? fixProfanity(d.data.name) : "")
         .attr("id", (d) => "word-label-" + d.data.name + "-" + d.data.count + "-" + year)
         .attr("fill", (_) => "var(--light-text)")
         .attr("x", 3)
@@ -453,7 +453,7 @@ const Timeline = () => {
 
     d3.selectAll('.timeline-rect')
       .on("mouseover", (e, d) => {
-        d3.select(e.target).attr("stroke-width", 8).attr("stroke", "var(--light-text)");
+        // d3.select(e.target).attr("stroke-width", 8).attr("stroke", "var(--light-text)");
         d3.select("#tooltip")
           .transition()
           .duration(200)
@@ -467,26 +467,42 @@ const Timeline = () => {
     setHideProfanity(!hideProfanity);
   }
 
+  const shouldShowLabel = (d) => {
+    let fontSize = fontScale(d.data.count).toString() + "pt";
+    let textBox = d3.select("#Test").style('font-size', fontSize).style("font-family", "Lato").text(d.data.name).node().getBoundingClientRect();
+    let textWidth = textBox.width + 1;
+    let textHeight = textBox.height;
+      
+    let boxHeight = d.y1 - d.y0;
+    let boxWidth = d.x1 - d.x0;
+    return ( textWidth <= boxWidth ) && (textHeight <= boxHeight);
+  }
+
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
       <div className='title'>Click on each year to see which lyrics by category were altered the most that year.</div>
-      <div className="profanity-container">
-        <input type="checkbox" checked={hideProfanity} onChange={toggleProfanity} id="profanity-toggle"></input>
-        <label for="profanity-toggle">Hide Curse Words</label>
-      </div>
       <div id="timeline-wrapper" className="timeline-container">
-        <svg
-          className="d3-component"
-          width="100%"
-          height="80%"
-          ref={d3Container}
-          id="timeline"
-        />
-        {createLegend()}
+        <div className="timeline-svg-wrapper">
+          <svg
+            className="d3-component"
+            width="800px"
+            height="500px"
+            x="10%"
+            ref={d3Container}
+            id="timeline"
+          />
+        </div>
+        <div className="timeline-middle-column">
+          {createLegend()}
+          <div className="profanity-container">
+            <input type="checkbox" checked={hideProfanity} onChange={toggleProfanity} id="profanity-toggle"></input>
+            <label for="profanity-toggle">Hide Curse Words</label>
+            <div className="timeline-profanity-ack">Profanity Filter provided by <a class="timeline-profanity-ack-link" href="https://github.com/KanoComputing/nodejs-profanity-util" target="_blank" rel="noreferrer">Kano Computing's NodeJS Profanity Filter</a></div>
+          </div>
+        </div>
         <YearScroller year={year} onChange={(newYear) => setYear(newYear)} />
       </div>
-      <div className="timeline-profanity-ack">Profanity Filter provided by <a class="timeline-profanity-ack-link" href="https://github.com/KanoComputing/nodejs-profanity-util" target="_blank" rel="noreferrer">KanoComputing's NodeJS Profanity Filter</a></div>
     </div>
   );
 };
