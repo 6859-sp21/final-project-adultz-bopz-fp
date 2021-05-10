@@ -21,7 +21,7 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App" id="scrollApp">
       <Scrollama onStepEnter={onStepEnter}>
         <Step
           data={0}

@@ -117,7 +117,7 @@ const Timeline = () => {
       createLegend();   
       
       // tooltip
-      d3.select("body")
+      d3.select("#scrollApp")
         .append("div")
         .attr("id", "tooltip")
         .attr("style", "position: absolute; opacity: 0;")
@@ -177,14 +177,16 @@ const Timeline = () => {
         .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || "1em");
 
       // Create Popup Background
-      d3.select("body")
+      d3.select("#scrollApp")
         .append("div")
         .attr("id", "timeline-popup-bg")
         .style("z-index", "-10")
         .style("position", "fixed")
         .style("opacity", "0")
-        .style("width", "100vw")
-        .style("height", "100vh")
+        .style("max-height", "100vh")
+        .style("max-width", "100vw")
+        .style("min-height", "100vh")
+        .style("min-width", "100vw")
         .style("background-color", "rgb(0,0,0,.8)")
         .style("left", 0)
         .style("top", 0);
@@ -321,7 +323,7 @@ const Timeline = () => {
           .style("z-index", "10")
 
         // Create Popup modal
-        d3.select("body")
+        d3.select("#scrollApp")
           .append("div")
           .attr("id", "timeline-popup-content")
           .attr("class", "timeline-popup-box")

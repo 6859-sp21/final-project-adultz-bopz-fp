@@ -245,7 +245,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .text((d) => (!d.children ? d.data.songName : d.data.name));
 
       // tooltip
-      d3.select("body")
+      d3.select("#scrollApp")
         .append("div")
         .attr("id", "tooltip")
         .attr("style", "position: absolute; opacity: 0;")
@@ -296,12 +296,14 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .style("text-align", "center")
         .attr("id", "lyrics-title");
 
-      d3.select("body")
+      d3.select("#scrollApp")
         .append("div")
         .attr("id", "lyric-popup-bg")
         .style("background-color", "black")
-        .style("height", "100vh")
-        .style("width", "100vw")
+        .style("max-height", "100vh")
+        .style("max-width", "100vw")
+        .style("min-height", "100vh")
+        .style("min-width", "100vw")
         .style("position", "fixed")
         .style("top", "0px")
         .style("left", "0px")
@@ -418,7 +420,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   }, [songOrArtist, root, zoom]);
 
   return (
-    <>
+    <div className="Bubbles-container">
       <div>
         <h3 className="Bubbles-layer" id="selectedAllArtist">All Artists</h3>
         <h3 className="Bubbles-layer" id="selectedArtistName">Words</h3>
@@ -428,7 +430,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
       <div id="svg-container" style={{ width: "100%" }}>
         <svg className="d3-component" width="100%" height="100%" ref={d3Container} id="bubbles" />
       </div>
-    </>
+    </div>
   );
 };
 
