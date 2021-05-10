@@ -315,7 +315,10 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .style("top", "0px")
         .style("left", "0px")
         .style("opacity", "0")
-        .style("z-index", "-11");
+        .style("z-index", "-11")
+        .on("click", () => {
+          closeLyrics();
+        });
 
       d3.select("#lyrics").append("p").style("text-align", "center").attr("id", "lyrics-year");
 
