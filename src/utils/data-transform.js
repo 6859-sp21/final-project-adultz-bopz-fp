@@ -28,7 +28,7 @@ export const genNestedData = async () => {
             let firstUniqueEntry = dataEntries[0];
             const { ogLyric, kbLyric, badword } = firstUniqueEntry;
 
-            let { kbLyricHTML, ogLyricHTML } = compareLyrics(
+            let { kbLyricHTML, ogLyricHTML, ogLyricHTMLCensored } = compareLyrics(
               badword,
               ogLyric,
               kbLyric
@@ -37,6 +37,7 @@ export const genNestedData = async () => {
               ...firstUniqueEntry,
               kbLyricHTML: kbLyricHTML,
               ogLyricHTML: ogLyricHTML,
+              ogLyricHTMLCensored: ogLyricHTMLCensored
             };
           });
           return { name: song[0], children: groupedByLyric };

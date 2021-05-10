@@ -4,6 +4,7 @@ import { genNestedData } from "./utils/data-transform";
 import { width, height, pack } from "./utils/d3-config.js";
 import { VIEW_ALL_OPTION } from "./App";
 import "./Bubbles.css";
+import { purify } from "./utils/utilities";
 
 const scale1 = d3
   .scaleSequential(d3.interpolate("#00875A", "#ABF5D1"))
@@ -22,6 +23,7 @@ let svg, view, label, node, focus;
 
 const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   const [root, setRoot] = useState(null);
+  const [hideProfanity, setHideProfanity] = useState(true);
 
   const d3Container = useRef(null);
 
@@ -44,15 +46,15 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         });
       }
       artistSelected = "Artist: " + d.data.name;
-      wordSelected = `Words altered in Kidz Bop songs by ${d.data.name}`;
+      wordSelected = `Words altered in Kidz Bop songs by ${ hideProfanity ? purify(d.data.name) : d.data.name}`;
     } else if (d.depth === 2) {
       // song level
       artistSelected = "Artist: " + d.parent.data.name;
-      wordSelected = "Word: " + d.data.name;
-      songSelected = `Songs that ${d.parent.data.name} say(s) '${d.data.name}'`;
+      wordSelected = "Word: " + (hideProfanity ? purify(d.data.name) : d.data.name);
+      songSelected = `Songs that ${d.parent.data.name} say(s) '${hideProfanity ? purify(d.data.name) : d.data.name}'`;
     } else if (d.depth === 3) {
       artistSelected = "Artist: " + d.parent.parent.data.name;
-      wordSelected = "Word: " + d.parent.data.name;
+      wordSelected = "Word: " + (hideProfanity ? purify(d.parent.data.name) : d.parent.data.name);
       songSelected = "Song: " + d.data.name;
     } 
 
@@ -76,7 +78,7 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
       .style("border-left", d.depth === 3 ? "var(--light-green) solid 2px" : "none")
       .text(
         d.depth === 3
-          ? `Lyrics in '${d.data.name}' where the word '${d.parent.data.name}' is altered`
+          ? `Lyrics in '${d.data.name}' where the word '${(hideProfanity) ? purify(d.parent.data.name) : d.parent.data.name }' is altered`
           : "Lyrics"
       );
   };
@@ -238,11 +240,16 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
         .selectAll("text")
         .data(root.descendants())
         .join("text")
-        .style("font", (d) => (d.depth === 1 ? "8px Lato" : "12px Lato"))
-        .style("fill", "white")
-        .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
-        .style("display", (d) => (shouldShowLabel(d) ? "inline" : "none"))
-        .text((d) => (!d.children ? d.data.songName : d.data.name));
+          .attr("class", (d) => "label-text-node-depth-" + d.depth)
+          .style("font", (d) => (d.depth === 1 ? "8px Lato" : "12px Lato"))
+          .style("fill", "white")
+          .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
+          .style("display", (d) => (shouldShowLabel(d) ? "inline" : "none"))
+          .text((d) => {
+            let content = (!d.children ? d.data.songName : d.data.name);
+            let filteredContent = (hideProfanity ? purify(content) : content);
+            return filteredContent;
+          });
 
       // tooltip
       d3.select("#scrollApp")
@@ -349,10 +356,9 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
   };
 
   const generateLyricRow = (data) => {
-    console.log(data)
     let ogHeader = `<b>${data.ogArtist}</b><br />`;
     let ogLyricHTML =
-      `<div class="Bubbles-ogLyric ${data.category}">` + data.ogLyricHTML + "</div>";
+      `<div class="Bubbles-ogLyric ${data.category}">` + (hideProfanity ? data.ogLyricHTMLCensored : data.ogLyricHTM ) + "</div>";
 
     let kbHeader = "<b style='float:right'>Kidz Bop</b><br />";
     let kbLyricHTML =
@@ -419,16 +425,36 @@ const Bubbles = ({ songOrArtist, setSongOrArtist, shouldFocus }) => {
     }
   }, [songOrArtist, root, zoom]);
 
+
+  useEffect(() => {
+    d3.selectAll(".label-text-node-depth-2")
+      .text((d) => {
+        let content = (!d.children ? d.data.songName : d.data.name);
+        let filteredContent = (hideProfanity ? purify(content) : content);
+        return filteredContent;
+      });
+  }, [hideProfanity])
+
+  const toggleProfanity = () => {
+    setHideProfanity(!hideProfanity);
+  }
+
   return (
     <div className="Bubbles-container">
-      <div>
-        <h3 className="Bubbles-layer" id="selectedAllArtist">All Artists</h3>
-        <h3 className="Bubbles-layer" id="selectedArtistName">Words</h3>
-        <h3 className="Bubbles-layer" id="selectedBadWord">Songs</h3>
-        <h3 className="Bubbles-layer" id="selectedSong">Lyrics</h3>
+      <div className="Bubbles-checkbox">
+        <input type="checkbox" id="bubbleProfanity" checked={hideProfanity} onChange={toggleProfanity}></input>
+        <label for="bubbleProfanity">Hide Profanity</label>
       </div>
-      <div id="svg-container" style={{ width: "100%" }}>
-        <svg className="d3-component" width="100%" height="100%" ref={d3Container} id="bubbles" />
+      <div className="Bubbles-content">
+        <div>
+          <h3 className="Bubbles-layer" id="selectedAllArtist">All Artists</h3>
+          <h3 className="Bubbles-layer" id="selectedArtistName">Words</h3>
+          <h3 className="Bubbles-layer" id="selectedBadWord">Songs</h3>
+          <h3 className="Bubbles-layer" id="selectedSong">Lyrics</h3>
+        </div>
+        <div id="svg-container" style={{ width: "100%" }}>
+          <svg className="d3-component" width="100%" height="100%" ref={d3Container} id="bubbles" />
+        </div>
       </div>
     </div>
   );
