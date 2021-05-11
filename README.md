@@ -38,6 +38,10 @@ For our Final Project, we chose to extend our work from A4, which created an int
 - 
 
 ### Jessica: 
-- 
+- Created a tooltip that gives more context on how many times a word has been altered in Kidz Bop songs.
+- Create the legend for the treemap that is sorted from the largest category of altered words to the least.
+- Helped style the modal popup for the treemap to match the style for the popup in the bubble popup.
+- Introduced a color legend for the bubble visualization
+- Changed the color of word bubbles to match the legend.
 
 

@@ -91,8 +91,8 @@ export const COLORS = {
   identity: d3.scaleSequential(d3.interpolate("#99efff",  "#008ba5")).domain([1, 10]),
   sexual: d3.scaleSequential(d3.interpolate("#ffbbfe",  "#C054BE")).domain([1, 10]),
   profanity: d3.scaleSequential(d3.interpolate("#ffe5b0",  "#FFAB00")).domain([1, 10]),
-  other: d3.scaleSequential(d3.interpolate("#c2cfd8",  "#596066")).domain([1, 10]),
   violence: d3.scaleSequential(d3.interpolate("#ffbeb0",  "#FF5630")).domain([1, 10]),
+  other: d3.scaleSequential(d3.interpolate("#c2cfd8",  "#596066")).domain([1, 10]),
 };
 
 

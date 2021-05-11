@@ -21,8 +21,9 @@ export const IntroStep = () => (
 );
 
 export const Step1 = () => (
-  <div style={{ marginLeft: "15vw", textAlign: "left" }}>
-    <h2 className="header">Not to burst your bubble, but ...</h2>
+  <div style={{ margin: "15vw", textAlign: "left" }}>
+    <h2 className="header">Curious to see how you're favorite artists song's have been altered?</h2>
+    <h3>Explore the following bubble visualization to find out!</h3>
   </div>
 );
 

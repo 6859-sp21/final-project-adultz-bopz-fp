@@ -90,18 +90,19 @@
 }
 
 .launch-button {
-  background-color: rgb(255, 255, 255);
-  border: 4px solid gray;
-  color: black;
+  background-color: var(--dark-green);
+  font-size: 1.5em;
+  color: var(--light-text);
   margin-top: 24px;
-  padding: 24px;
+  padding: 12px;
+  border-radius: 12px;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   width: fit-content;
 }
 
 .launch-button:hover {
-  background-color: black;
-  color: rgb(255, 255, 255);
+  background-color: var(--light-green);
+  color: var(--dark);
   cursor: pointer;
 }

@@ -56,22 +56,6 @@
   text-align: left;
 }
 
-.About-launch-button {
-  background-color: rgb(255, 255, 255);
-  border: 4px solid gray;
-  color: black;
-  padding: 24px;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  width: fit-content;
-}
-
-.About-launch-button:hover {
-  background-color: black;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-}
-
 .About-section-white-background {
   background-color: white;
   border: 8px solid gray;

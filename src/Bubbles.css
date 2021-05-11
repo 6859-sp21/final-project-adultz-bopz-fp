@@ -101,3 +101,8 @@ button {
 .kblyric-same.start {
   padding-left: 2px;
 }
+
+.Bubbles-legend {
+  position: absolute;
+  right: 12px;
+}

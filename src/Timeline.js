@@ -73,38 +73,30 @@ const Timeline = () => {
     if (data) {
       return (
         <div className="Timeline-legend">
-          {Object.entries(COLORS).map(([category, color], i) => { return getLegendTitleInfo(category); }) // returns a tuple with text at index 0, and opacity at index 1
-            .sort((a, b) => { return b.count - a.count })
+          {Object.entries(COLORS)
+            .map(([category, color], i) => {
+              return getLegendTitleInfo(category);
+            }) // returns a tuple with text at index 0, and opacity at index 1
+            .sort((a, b) => {
+              return b.count - a.count;
+            })
             .map((legendTextInfo) => {
               return (
                 <div className="Timeline-legend-item">
-                  <div className="circle" style={{ backgroundColor: COLORS[legendTextInfo.category](10) }}/>
+                  <div
+                    className="circle"
+                    style={{ backgroundColor: COLORS[legendTextInfo.category](10) }}
+                  />
                   <div style={{ opacity: legendTextInfo.opacity || 1, whiteSpace: "nowrap" }}>
                     {legendTextInfo.text || legendTextInfo.category}
                     <span style={{ fontWeight: "200" }}> ({legendTextInfo.count})</span>
                   </div>
                 </div>
               );
-            })
-          }
+            })}
         </div>
       );
     }
-      // svg.append("circle")
-      //    .attr("cx", 10)
-      //    .attr("cy", 10 + i*30)
-      //    .attr("r", 6)
-      //    .style("fill", )
-
-      // svg.append("text")
-      //    .attr("x", 20)
-      //    .attr("y", 10 + 30*i)
-      //    .text(legendTextInfo.text || category)
-      //    .style('opacity', legendTextInfo.opacity || 1)
-      //    .style("font-size", "15px")
-      //    .attr("fill", "var(--light-text)")
-      //    .attr("alignment-baseline","middle")
-    //}) 
   }
 
   useEffect(() => {
@@ -290,21 +282,37 @@ const Timeline = () => {
             let kbLyric = lyricData.kbLyric === CUTS_VERSE ? CUTS_VERSE : "Kidz Bop Lyric: " + lyricData.kbLyric;
 
             let comparedLyrics = compareLyricsInTimeline(lyricData);
-            childContainer.append("div")
-                          .style("width", "45%")
-                          .append("i").text(lyricData.ogArtist)
-                          .append("div").attr("class", "Bubbles-ogLyric").style("font-style","normal")
-                          .html(hideProfanity ? comparedLyrics.ogLyricHTMLCensored : comparedLyrics.ogLyricHTML)
+            childContainer
+              .append("div")
+              .style("width", "45%")
+              .append("i")
+              .text(lyricData.ogArtist)
+              .append("div")
+              .attr("class", `Bubbles-ogLyric ${lyricData.category}`)
+              .style("font-style", "normal")
+              .html(
+                hideProfanity ? comparedLyrics.ogLyricHTMLCensored : comparedLyrics.ogLyricHTML
+              );
             
-                          childContainer.append("b").attr("class", "Bubbles-arrow").style("padding-top", "4px").text("\u2192")
-            
-                          childContainer.append("div").style("display", "flex")
-                          .style("width", "45%")
-                          .append("i").style("text-align", "right").style("width", "100%").text("Kidz Bop")
-                          .append("div").attr("class", "Bubbles-kbLyric")
-                          .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
-                          .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
-                          .html(comparedLyrics.kbLyricHTML);
+            childContainer
+              .append("b")
+              .attr("class", "Bubbles-arrow")
+              .style("padding-top", "4px")
+              .text("\u2192");
+
+            childContainer
+              .append("div")
+              .style("display", "flex")
+              .style("width", "45%")
+              .append("i")
+              .style("text-align", "right")
+              .style("width", "100%")
+              .text("Kidz Bop")
+              .append("div")
+              .attr("class", `Bubbles-kbLyric ${lyricData.category}`)
+              .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
+              .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
+              .html(comparedLyrics.kbLyricHTML);
           })
         });        
       }
@@ -481,7 +489,9 @@ const Timeline = () => {
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
-      <div className='title'>Click on each year to see which lyrics by category were altered the most that year.</div>
+      <div className="title">
+        Click on each year to see which lyrics by category were altered the most that year.
+      </div>
       <div id="timeline-wrapper" className="timeline-container">
         <div className="timeline-svg-wrapper">
           <svg
@@ -496,9 +506,24 @@ const Timeline = () => {
         <div className="timeline-middle-column">
           {createLegend()}
           <div className="profanity-container">
-            <input type="checkbox" checked={hideProfanity} onChange={toggleProfanity} id="profanity-toggle"></input>
+            <input
+              type="checkbox"
+              checked={hideProfanity}
+              onChange={toggleProfanity}
+              id="profanity-toggle"
+            ></input>
             <label for="profanity-toggle">Hide Curse Words</label>
-            <div className="timeline-profanity-ack">Profanity Filter provided by <a class="timeline-profanity-ack-link" href="https://github.com/KanoComputing/nodejs-profanity-util" target="_blank" rel="noreferrer">Kano Computing's NodeJS Profanity Filter</a></div>
+            <div className="timeline-profanity-ack">
+              Profanity Filter provided by{" "}
+              <a
+                className="timeline-profanity-ack-link"
+                href="https://github.com/KanoComputing/nodejs-profanity-util"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Kano Computing's NodeJS Profanity Filter
+              </a>
+            </div>
           </div>
         </div>
         <YearScroller year={year} onChange={(newYear) => setYear(newYear)} />

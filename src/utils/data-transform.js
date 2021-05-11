@@ -42,7 +42,7 @@ export const genNestedData = async () => {
           });
           return { name: song[0], children: groupedByLyric };
         });
-        return { name: word[0], children: groupedBySong };
+        return { name: word[0], category: word[1][0].category, children: groupedBySong };
       });
       return { name: item[0], children: groupedByBadword };
     });

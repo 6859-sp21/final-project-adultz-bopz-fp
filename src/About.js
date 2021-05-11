@@ -17,26 +17,30 @@ const About = () => {
         <img className="About-img-container-item" src={img4} />
       </div>
       <div className="About-carousel">
-        <Carousel  dynamicHeight={false} showStatus={false} showThumbs={false}>
-        <section id="carousel1" className="About-section">
-          <div>
-            <p className="About-title About-white-background">Understanding Kidz Bopz</p>
-            <p className="About-team About-white-background">Nico Salinas, Shannen Wu {"&"} Jessica Yin</p>
-          </div>
-          <Link to="/app" className="About-launch-button">Launch Visualization App</Link>
-        </section>
-        <section id="carousel2" className="About-section About-section-white-background">
-          <h2>ABSTRACT GOES HERE</h2>
-        </section>
+        <Carousel dynamicHeight={false} showStatus={false} showThumbs={false}>
+          <section id="carousel1" className="About-section">
+            <div>
+              <p className="About-title About-white-background">Understanding Kidz Bopz</p>
+              <p className="About-team About-white-background">
+                Nico Salinas, Shannen Wu {"&"} Jessica Yin
+              </p>
+            </div>
+            <Link to="/app" className="launch-button">
+              Launch Visualization App
+            </Link>
+          </section>
+          <section id="carousel2" className="About-section About-section-white-background">
+            <h2>ABSTRACT GOES HERE</h2>
+          </section>
 
-        <section id="carousel3" className="About-section About-section-white-background">
-          <h2>VIDEO DEMO HERE</h2>
-        </section>
+          <section id="carousel3" className="About-section About-section-white-background">
+            <h2>VIDEO DEMO HERE</h2>
+          </section>
 
-        <section id="carousel4" className="About-section About-section-white-background">
-          <h2>INSTALLATION DEMO INSTRUCTIONS</h2>
-        </section>
-      </Carousel>
+          <section id="carousel4" className="About-section About-section-white-background">
+            <h2>INSTALLATION DEMO INSTRUCTIONS</h2>
+          </section>
+        </Carousel>
       </div>
     </div>
   );
