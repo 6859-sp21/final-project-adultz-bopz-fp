@@ -496,7 +496,7 @@ const Timeline = () => {
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
-      <div className="title">
+      <div className="subtitle">
         Click on each year to see which lyrics by category were altered the most that year.
       </div>
       <div id="timeline-wrapper" className="timeline-container">

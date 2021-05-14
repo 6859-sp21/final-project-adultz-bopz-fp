@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     max-height: 100vh;
+    overflow-x: auto;
 }
 
 .title {
@@ -10,9 +11,15 @@
     text-align: left;
 }
 
+.subtitle {
+    margin: 0 24px 24px 24px;
+    text-align: left;
+}
+
 .timeline-container {
     display: flex;
     margin: 0 24px;
+    justify-content: center;
 }
 
 .timeline-svg-wrapper {
@@ -164,6 +171,7 @@
 
 .timeline-profanity-ack {
     font-size: 8pt;
+    max-width: 200px;
 }
 
 .timeline-profanity-ack-link {
@@ -178,4 +186,8 @@
     flex-direction: column;
     justify-content: space-around;
     margin: 0 12px;
+}
+
+#profanity-toggle:hover {
+    cursor: pointer;
 }
