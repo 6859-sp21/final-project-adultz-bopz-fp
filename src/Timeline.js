@@ -457,7 +457,7 @@ const Timeline = () => {
 
   useEffect(() => {
     d3.selectAll("*[id^='word-label']")
-      .text((d) => fixProfanity(d.data.name));
+      .text((d) => shouldShowLabel(d) ? fixProfanity(d.data.name) : "");
 
     d3.selectAll('.timeline-rect')
       .on("mouseover", (e, d) => {
