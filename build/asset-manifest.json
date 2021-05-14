@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/final-project-adultz-bopz-fp/static/css/main.af3d2bc8.chunk.css",
-    "main.js": "/final-project-adultz-bopz-fp/static/js/main.68ea850b.chunk.js",
-    "main.js.map": "/final-project-adultz-bopz-fp/static/js/main.68ea850b.chunk.js.map",
+    "main.css": "/final-project-adultz-bopz-fp/static/css/main.32099cc6.chunk.css",
+    "main.js": "/final-project-adultz-bopz-fp/static/js/main.56ef2ffe.chunk.js",
+    "main.js.map": "/final-project-adultz-bopz-fp/static/js/main.56ef2ffe.chunk.js.map",
     "runtime-main.js": "/final-project-adultz-bopz-fp/static/js/runtime-main.8070ba13.js",
     "runtime-main.js.map": "/final-project-adultz-bopz-fp/static/js/runtime-main.8070ba13.js.map",
     "static/css/2.6b560088.chunk.css": "/final-project-adultz-bopz-fp/static/css/2.6b560088.chunk.css",
-    "static/js/2.04733eb4.chunk.js": "/final-project-adultz-bopz-fp/static/js/2.04733eb4.chunk.js",
-    "static/js/2.04733eb4.chunk.js.map": "/final-project-adultz-bopz-fp/static/js/2.04733eb4.chunk.js.map",
+    "static/js/2.623af831.chunk.js": "/final-project-adultz-bopz-fp/static/js/2.623af831.chunk.js",
+    "static/js/2.623af831.chunk.js.map": "/final-project-adultz-bopz-fp/static/js/2.623af831.chunk.js.map",
     "index.html": "/final-project-adultz-bopz-fp/index.html",
     "static/css/2.6b560088.chunk.css.map": "/final-project-adultz-bopz-fp/static/css/2.6b560088.chunk.css.map",
-    "static/css/main.af3d2bc8.chunk.css.map": "/final-project-adultz-bopz-fp/static/css/main.af3d2bc8.chunk.css.map",
-    "static/js/2.04733eb4.chunk.js.LICENSE.txt": "/final-project-adultz-bopz-fp/static/js/2.04733eb4.chunk.js.LICENSE.txt",
+    "static/css/main.32099cc6.chunk.css.map": "/final-project-adultz-bopz-fp/static/css/main.32099cc6.chunk.css.map",
+    "static/js/2.623af831.chunk.js.LICENSE.txt": "/final-project-adultz-bopz-fp/static/js/2.623af831.chunk.js.LICENSE.txt",
     "static/media/demo0.b37bdfc9.gif": "/final-project-adultz-bopz-fp/static/media/demo0.b37bdfc9.gif",
     "static/media/demo1.cf4fdfdd.gif": "/final-project-adultz-bopz-fp/static/media/demo1.cf4fdfdd.gif",
     "static/media/demo2.c3f91497.gif": "/final-project-adultz-bopz-fp/static/media/demo2.c3f91497.gif",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.8070ba13.js",
     "static/css/2.6b560088.chunk.css",
-    "static/js/2.04733eb4.chunk.js",
-    "static/css/main.af3d2bc8.chunk.css",
-    "static/js/main.68ea850b.chunk.js"
+    "static/js/2.623af831.chunk.js",
+    "static/css/main.32099cc6.chunk.css",
+    "static/js/main.56ef2ffe.chunk.js"
   ]
 }
