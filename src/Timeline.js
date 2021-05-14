@@ -157,7 +157,8 @@ const Timeline = () => {
           openModal();
           loadDataIntoPopup(d);      
         });
-
+      
+      d3.select("#root").append("div").attr("id", "Test");
       leaf
         .append("text")
         .text((d) => shouldShowLabel(d) ? fixProfanity(d.data.name) : "")
@@ -167,6 +168,7 @@ const Timeline = () => {
         .attr("y", "1em")
         .style("font-family", "Lato")
         .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || "1em");
+      d3.select("#Test").node().remove();
 
       // Create Popup Background
       d3.select("#scrollApp")
@@ -456,8 +458,12 @@ const Timeline = () => {
 
 
   useEffect(() => {
+    d3.select("#root").append("div").attr("id", "Test");
+
     d3.selectAll("*[id^='word-label']")
       .text((d) => shouldShowLabel(d) ? fixProfanity(d.data.name) : "");
+
+    d3.select("#Test").node().remove();
 
     d3.selectAll('.timeline-rect')
       .on("mouseover", (e, d) => {
@@ -472,6 +478,7 @@ const Timeline = () => {
   }, [hideProfanity])
 
   const toggleProfanity = () => {
+    console.log('here');
     setHideProfanity(!hideProfanity);
   }
 
