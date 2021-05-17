@@ -5,7 +5,7 @@ export const CUTS_VERSE = "cuts verse";
 
 export const COUNT_BY_YEAR = {
   "-1": {
-    max: 32,
+    max: 89,
     min: 1
   },
   2001: {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { genTimelineData, compareLyricsInTimeline } from "./utils/data-transform";
+import { genAllYearData, genTimelineData, compareLyricsInTimeline } from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
@@ -8,6 +8,7 @@ import { CUTS_VERSE, COUNT_BY_YEAR, COLORS, purify } from "./utils/utilities";
 const Timeline = () => {
   const [year, setYear] = useState(2019);
   const [rawData, setRawData] = useState(null);
+  const [allYearData, setAllYearData] = useState(null);
   const [data, setData] = useState(null);
   const [hideProfanity, setHideProfanity] = useState(true);
 
@@ -19,6 +20,10 @@ const Timeline = () => {
     const initData = async () => {
       const res = await genTimelineData();
       setRawData(res);
+
+      const allYearRes = await genAllYearData();
+      setAllYearData(treemap(allYearRes).data);
+
       const filtered = filterByYear(year, res);
       setData(treemap(filtered));
     };
@@ -44,7 +49,11 @@ const Timeline = () => {
   }
 
   const filterByYear = (filterYear, rawData) => {
-    return rawData.children.filter(({ year }) => filterYear === -1 ? true: year === filterYear)[0];
+    if( filterYear === -1 ){
+      return allYearData;
+    } else {
+      return rawData.children.filter(({ year }) => filterYear === -1 ? true: year === filterYear)[0];
+    }
   };
 
   const treemap = (data) =>

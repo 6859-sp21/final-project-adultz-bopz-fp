@@ -170,3 +170,24 @@ export const compareLyricsInTimeline = (lyricData) => {
   let { badword, ogLyric, kbLyric } = lyricData;
   return compareLyrics(badword, ogLyric, kbLyric);
 }
+
+export const genAllYearData = async () => {
+  const csvData = await genRawData();
+  
+  let groupedByCategory = Array.from(
+      d3.group(csvData, (d) => d.category)
+    ).map((category) => {
+      let groupedByBadword = Array.from(
+        d3.group(category[1], (d) => d.badword)
+      ).map((badword) => {
+        return { name: badword[0], count: badword[1].length, leaves: badword[1], category: category[0]  };
+      });
+
+      return { name: category[0], children: groupedByBadword };
+    });
+
+  return {
+    name: "allYears",
+    children: groupedByCategory,
+  };
+}
