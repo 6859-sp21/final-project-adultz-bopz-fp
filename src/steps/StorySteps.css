@@ -1,0 +1,108 @@
+.IntroStep {
+  animation: fadeIn linear 2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 15vw;
+  text-align: left;
+}
+
+.header {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.desc {
+  font-size: 24px;
+}
+
+.notice {
+  font-style: italic;
+  margin-top: 1em;
+  opacity: 50%;
+}
+
+.center-image {
+  display: block;
+  margin: auto;
+  max-width: fit-content;
+  padding: 16px;
+}
+
+.Step2 {
+  margin: 10vh 0;
+}
+
+.Step2-p {
+  font-size: 1.5em;
+  margin: 0 15vw 24px 15vh;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.launch-button {
+  background-color: var(--dark-green);
+  font-size: 1.5em;
+  color: var(--light-text);
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  width: fit-content;
+}
+
+.launch-button:hover {
+  background-color: var(--light-green);
+  color: var(--dark);
+  cursor: pointer;
+}

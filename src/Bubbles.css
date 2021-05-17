@@ -1,0 +1,108 @@
+.Bubbles-container {
+  margin: 0 24px;
+  width: 100%;
+}
+
+.Bubbles-checkbox {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.Bubbles-content {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.Bubbles-lyricRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.Bubbles-ogLyric,
+.Bubbles-kbLyric {
+  background-color: #456381;
+  border-radius: 16px;
+  color: var(--light-text);
+  margin-top: 4px;
+  padding: 12px;
+}
+
+.Bubbles-kbLyric {
+  text-align: right;
+}
+
+.Bubbles-arrow {
+  align-self: center;
+  color: var(--dark-text);
+  min-width: 40px;
+  text-align: center;
+}
+
+.Bubbles-layer {
+  color: var(--light-text);
+  font-weight: 200;
+  margin-top: 0;
+  padding-left: 12px;
+  text-align: left;
+  width: 300px;
+}
+
+b {
+  font-weight: 200;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: var(--light-text);
+  cursor: pointer;
+  font-family: "Lato";
+}
+
+.ogLyric-bad {
+  background-color: var(--dark-purple);
+  border-radius: 2px;
+  padding: 0 4px;
+}
+
+.alcohol .ogLyric-bad {
+  background-color: #00875a;
+}
+
+.identity .ogLyric-bad {
+  background-color: #0a8ba2;
+}
+
+.sexual .ogLyric-bad {
+  background-color: #c054be;
+}
+
+.profanity .ogLyric-bad {
+  background-color: #d08b00;
+}
+
+.other .ogLyric-bad {
+  background-color: #596066;
+}
+
+.violence .ogLyric-bad {
+  background-color: #cb3d1d;
+}
+
+.kblyric-different {
+  background-color: var(--light-text);
+  border-radius: 2px;
+  color: var(--dark);
+  padding-left: 4px;
+}
+
+.kblyric-same.start {
+  padding-left: 2px;
+}
+
+.Bubbles-legend {
+  position: absolute;
+  right: 12px;
+}
