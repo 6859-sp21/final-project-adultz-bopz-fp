@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { genTimelineData, compareLyricsInTimeline } from "./utils/data-transform";
+import {
+  genTimelineData,
+  compareLyricsInTimeline,
+} from "./utils/data-transform";
 import * as d3 from "d3";
 import "./Timeline.css";
 import YearScroller from "./YearScroller";
@@ -36,15 +39,20 @@ const Timeline = () => {
     let maxCountForYear = COUNT_BY_YEAR[year].max;
     let minCountForYear = COUNT_BY_YEAR[year].min;
 
-    return d3.scaleLinear().domain([minCountForYear, maxCountForYear]).range([12, 28])(count);
-  } 
+    return d3
+      .scaleLinear()
+      .domain([minCountForYear, maxCountForYear])
+      .range([12, 28])(count);
+  };
 
   const fixProfanity = (text) => {
-    return hideProfanity ? purify(text) : text
-  }
+    return hideProfanity ? purify(text) : text;
+  };
 
   const filterByYear = (filterYear, rawData) => {
-    return rawData.children.filter(({ year }) => filterYear === -1 ? true: year === filterYear)[0];
+    return rawData.children.filter(({ year }) =>
+      filterYear === -1 ? true : year === filterYear
+    )[0];
   };
 
   const treemap = (data) =>
@@ -62,13 +70,22 @@ const Timeline = () => {
 
   const createLegend = () => {
     const getLegendTitleInfo = (categoryName) => {
-      let categoryData = data.children.filter((item) => item.data.name === categoryName)[0];
-      let count = categoryData ? categoryData.children.reduce((sum, item) => sum + item.data.count, 0) : 0;
+      let categoryData = data.children.filter(
+        (item) => item.data.name === categoryName
+      )[0];
+      let count = categoryData
+        ? categoryData.children.reduce((sum, item) => sum + item.data.count, 0)
+        : 0;
       let titleText = categoryName;
-      let titleOpacity = (categoryData) ? 1 : 0.6;
+      let titleOpacity = categoryData ? 1 : 0.6;
 
-      return {text: titleText, opacity: titleOpacity, count: count, category: categoryName};
-    }
+      return {
+        text: titleText,
+        opacity: titleOpacity,
+        count: count,
+        category: categoryName,
+      };
+    };
 
     if (data) {
       return (
@@ -85,11 +102,21 @@ const Timeline = () => {
                 <div className="Timeline-legend-item">
                   <div
                     className="circle"
-                    style={{ backgroundColor: COLORS[legendTextInfo.category](10) }}
+                    style={{
+                      backgroundColor: COLORS[legendTextInfo.category](10),
+                    }}
                   />
-                  <div style={{ opacity: legendTextInfo.opacity || 1, whiteSpace: "nowrap" }}>
+                  <div
+                    style={{
+                      opacity: legendTextInfo.opacity || 1,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
                     {legendTextInfo.text || legendTextInfo.category}
-                    <span style={{ fontWeight: "200" }}> ({legendTextInfo.count})</span>
+                    <span style={{ fontWeight: "200" }}>
+                      {" "}
+                      ({legendTextInfo.count})
+                    </span>
                   </div>
                 </div>
               );
@@ -97,7 +124,7 @@ const Timeline = () => {
         </div>
       );
     }
-  }
+  };
 
   useEffect(() => {
     d3.selectAll("#timeline > *").remove();
@@ -106,8 +133,8 @@ const Timeline = () => {
     const root = data;
 
     if (root) {
-      createLegend();   
-      
+      createLegend();
+
       // tooltip
       d3.select("#scrollApp")
         .append("div")
@@ -118,7 +145,7 @@ const Timeline = () => {
         .style("padding", "8px")
         .style("border-radius", "4px");
 
-      // treemap 
+      // treemap
       const svg = d3
         .select(d3Container.current)
         .attr("viewBox", [0, 0, width, height])
@@ -137,12 +164,18 @@ const Timeline = () => {
         .attr("width", (d) => d.x1 - d.x0)
         .attr("height", (d) => d.y1 - d.y0)
         .on("mouseover", (e, d) => {
-          d3.select(e.target).attr("stroke-width", 3).attr("stroke", "var(--light-text)");
+          d3.select(e.target)
+            .attr("stroke-width", 3)
+            .attr("stroke", "var(--light-text)");
           d3.select("#tooltip")
             .transition()
             .duration(200)
             .style("opacity", 1)
-            .text(`'${fixProfanity(d.data.name)}' was altered in ${d.data.count} Kids Bop lyrics`);
+            .text(
+              `'${fixProfanity(d.data.name)}' was altered in ${
+                d.data.count
+              } Kids Bop lyrics`
+            );
         })
         .on("mousemove", (e) => {
           d3.select("#tooltip")
@@ -155,19 +188,25 @@ const Timeline = () => {
         })
         .on("click", (_, d) => {
           openModal();
-          loadDataIntoPopup(d);      
+          loadDataIntoPopup(d);
         });
-      
+
       d3.select("#root").append("div").attr("id", "Test");
       leaf
         .append("text")
-        .text((d) => shouldShowLabel(d) ? fixProfanity(d.data.name) : "")
-        .attr("id", (d) => "word-label-" + d.data.name + "-" + d.data.count + "-" + year)
+        .text((d) => (shouldShowLabel(d) ? fixProfanity(d.data.name) : ""))
+        .attr(
+          "id",
+          (d) => "word-label-" + d.data.name + "-" + d.data.count + "-" + year
+        )
         .attr("fill", (_) => "var(--light-text)")
         .attr("x", 3)
         .attr("y", "1em")
         .style("font-family", "Lato")
-        .style("font-size", (d) => fontScale(d.data.count).toString() + "pt" || "1em");
+        .style(
+          "font-size",
+          (d) => fontScale(d.data.count).toString() + "pt" || "1em"
+        );
       d3.select("#Test").node().remove();
 
       // Create Popup Background
@@ -185,54 +224,66 @@ const Timeline = () => {
         .style("left", 0)
         .style("top", 0);
 
-      const loadPopupLeft  = (leaves, category) => {
-
+      const loadPopupLeft = (leaves, category) => {
         // 1. Clear any existing artist HTML nodes
-        d3.selectAll('.timeline-popup-left-item').remove();
-        d3.selectAll('.timeline-popup-subtitle').remove();
-        d3.selectAll('.timeline-popup-right > *').remove();
+        d3.selectAll(".timeline-popup-left-item").remove();
+        d3.selectAll(".timeline-popup-subtitle").remove();
+        d3.selectAll(".timeline-popup-right > *").remove();
 
-        // 2 Add header 
-        d3.select('.timeline-popup-left')
+        // 2 Add header
+        d3.select(".timeline-popup-left")
           .append("h4")
           .attr("class", "timeline-popup-subtitle")
-          .text("Artists")
+          .text("Artists");
 
-        d3.select('.timeline-popup-right')
+        d3.select(".timeline-popup-right")
           .append("h4")
           .attr("class", "timeline-popup-subtitle")
-          .text("Songs")
-          
+          .text("Songs");
+
         // 3. Get unique artists
-        let artists = Array.from(d3.group(leaves, leaf => leaf.ogArtist)).sort((a, b) => {
+        let artists = Array.from(
+          d3.group(leaves, (leaf) => leaf.ogArtist)
+        ).sort((a, b) => {
           return b[1].length - a[1].length;
         });
-        
+
         // 4. Map artist names to HTML elements
         artists.map((artistData, index) => {
-          d3.select('.timeline-popup-left')
-            .append('div')
+          d3.select(".timeline-popup-left")
+            .append("div")
             .attr("class", "timeline-popup-left-item")
             .attr("id", "timeline-popup-left-" + index)
             .text(artistData[0] + " (" + artistData[1].length + ")")
             .style("background-color", COLORS[category](artistData[1].length))
             .style("border", () => {
               // let backgroundBorderColor = "4px solid " + COLORS[category](artistData[1].length);
-              return index === 0 ? "4px solid var(--light-text)" : 'none';
+              return index === 0 ? "4px solid var(--light-text)" : "none";
             })
             .on("click", (e) => {
               e.preventDefault();
               d3.selectAll(".timeline-popup-right-song-title").remove();
               d3.selectAll(".timeline-popup-right-lyric-section").remove();
-              d3.selectAll(".timeline-popup-left-item").style("border", "none").style("color", "var(--dark)");
-              d3.select(e.target).style("border", "4px solid var(--light-text)");
+              d3.selectAll(".timeline-popup-left-item")
+                .style("border", "none")
+                .style("color", "var(--dark)");
+              d3.select(e.target).style(
+                "border",
+                "4px solid var(--light-text)"
+              );
               loadPopupRight(artistData[1], category);
             })
             .on("mouseover", (e) => {
-              d3.select(e.target).style("background-color", "var(--light-text)");
+              d3.select(e.target).style(
+                "background-color",
+                "var(--light-text)"
+              );
             })
             .on("mouseout", (e) => {
-              d3.select(e.target).style("background-color", COLORS[category](artistData[1].length));
+              d3.select(e.target).style(
+                "background-color",
+                COLORS[category](artistData[1].length)
+              );
             });
         });
 
@@ -240,33 +291,35 @@ const Timeline = () => {
         let firstArtistData = artists[0];
         let songDataFromFirstArtist = firstArtistData[1];
         loadPopupRight(songDataFromFirstArtist, category);
-      }
+      };
 
       const loadPopupRight = (allSongs, category) => {
-
         // 1. Clear any existing artist HTML nodes
-        d3.selectAll('.timeline-popup-right-song-section').remove();
+        d3.selectAll(".timeline-popup-right-song-section").remove();
 
         // 2. Group by song name
-        let uniqueSongs = Array.from(d3.group(allSongs, (d) => d.songName)).sort((a, b) => a[0] < b[0]);
+        let uniqueSongs = Array.from(
+          d3.group(allSongs, (d) => d.songName)
+        ).sort((a, b) => a[0] < b[0]);
 
         // 3. Map songs to HTML elements
         uniqueSongs.map((songData, index) => {
           let songTitle = songData[0];
 
           // Create song section container
-          let sectionRef = d3.select('.timeline-popup-right')
-            .append('div')
-            .attr('class', 'timeline-popup-right-song-section')
-            .attr('id', 'timeline-popup-right-song-section-' + index)
+          let sectionRef = d3
+            .select(".timeline-popup-right")
+            .append("div")
+            .attr("class", "timeline-popup-right-song-section")
+            .attr("id", "timeline-popup-right-song-section-" + index);
 
           // Add song title to each section
           sectionRef
             .append("div")
             .attr("class", "timeline-popup-right-song-title")
             .style("background-color", COLORS[category](10))
-            .attr('id', 'timeline-popup-right-song-title-' + index)
-            .text(songTitle)
+            .attr("id", "timeline-popup-right-song-title-" + index)
+            .text(songTitle);
 
           // Create lyric section
           sectionRef
@@ -275,13 +328,20 @@ const Timeline = () => {
             .attr("id", "timeline-popup-right-lyric-section-" + index);
 
           // Add lyric items to lyric section
-          let ref = d3.select("#timeline-popup-right-lyric-section-" + index)
+          let ref = d3.select("#timeline-popup-right-lyric-section-" + index);
           songData[1].map((lyricData, subIndex) => {
-            let childContainer = ref.append("div")
+            let childContainer = ref
+              .append("div")
               .attr("class", "timeline-popup-right-lyric-item")
-              .attr("id", "timeline-popup-right-lyric-item-" + index + "-" + subIndex)
+              .attr(
+                "id",
+                "timeline-popup-right-lyric-item-" + index + "-" + subIndex
+              );
 
-            let kbLyric = lyricData.kbLyric === CUTS_VERSE ? CUTS_VERSE : "Kidz Bop Lyric: " + lyricData.kbLyric;
+            let kbLyric =
+              lyricData.kbLyric === CUTS_VERSE
+                ? CUTS_VERSE
+                : "Kidz Bop Lyric: " + lyricData.kbLyric;
 
             let comparedLyrics = compareLyricsInTimeline(lyricData);
             childContainer
@@ -293,9 +353,11 @@ const Timeline = () => {
               .attr("class", `Bubbles-ogLyric ${lyricData.category}`)
               .style("font-style", "normal")
               .html(
-                hideProfanity ? comparedLyrics.ogLyricHTMLCensored : comparedLyrics.ogLyricHTML
+                hideProfanity
+                  ? comparedLyrics.ogLyricHTMLCensored
+                  : comparedLyrics.ogLyricHTML
               );
-            
+
             childContainer
               .append("b")
               .attr("class", "Bubbles-arrow")
@@ -315,9 +377,9 @@ const Timeline = () => {
               .style("font-style", kbLyric === CUTS_VERSE ? "italic" : "normal")
               .style("opacity", kbLyric === CUTS_VERSE ? "0.75" : "1")
               .html(comparedLyrics.kbLyricHTML);
-          })
-        });        
-      }
+          });
+        });
+      };
 
       const openModal = () => {
         // 1. Lock Scroll
@@ -329,7 +391,7 @@ const Timeline = () => {
           .transition()
           .duration(200)
           .style("opacity", 0.6)
-          .style("z-index", "10")
+          .style("z-index", "10");
 
         // Create Popup modal
         d3.select("#scrollApp")
@@ -379,8 +441,8 @@ const Timeline = () => {
         d3.select(".timeline-popup-header")
           .append("h2")
           .attr("id", "timeline-popup-title")
-          .attr("class", "timeline-popup-title")
-  
+          .attr("class", "timeline-popup-title");
+
         d3.select(".timeline-popup-header")
           .append("h3")
           .attr("id", "timeline-popup-category")
@@ -394,29 +456,29 @@ const Timeline = () => {
           .style("color", "black");
 
         // Create Popup left container
-        d3.select('#timeline-popup-body')
-          .append('div')
-          .attr("class", "timeline-popup-left" )
+        d3.select("#timeline-popup-body")
+          .append("div")
+          .attr("class", "timeline-popup-left");
 
         // Create Popup right container
-        d3.select('#timeline-popup-body')
-          .append('div')
-          .attr("class", "timeline-popup-right" )
-      }
+        d3.select("#timeline-popup-body")
+          .append("div")
+          .attr("class", "timeline-popup-right");
+      };
 
       const closeModal = () => {
         // 1. Remove Scroll Lock
         d3.select("html").style("overflow", "auto").style("height", "auto");
 
         // 2. Send Background screen to back
-        d3.select('#timeline-popup-bg')
+        d3.select("#timeline-popup-bg")
           .transition()
           .duration(200)
           .style("opacity", "0")
           .style("z-index", -10);
 
         // 3. Send popup to back
-        d3.select('#timeline-popup-content')
+        d3.select("#timeline-popup-content")
           .transition()
           .duration(200)
           .style("opacity", "0")
@@ -426,14 +488,18 @@ const Timeline = () => {
         d3.select(".timeline-popup-right").remove();
         d3.select(".timeline-popup-title").remove();
         d3.select(".timeline-popup-category").remove();
-      }
+      };
 
       const loadDataIntoPopup = (d) => {
-        d3.select(".timeline-popup-header") 
+        d3.select(".timeline-popup-header");
 
         //1. Load popup title
-        d3.select("#timeline-popup-title")
-          .text("Altered lyrics with '" + ( hideProfanity ? purify(d.data.name) : d.data.name) + "' from " + year)
+        d3.select("#timeline-popup-title").text(
+          "Altered lyrics with '" +
+            (hideProfanity ? purify(d.data.name) : d.data.name) +
+            "' from " +
+            year
+        );
 
         d3.select("#timeline-popup-category")
           .text("Category: " + d.data.category)
@@ -441,63 +507,72 @@ const Timeline = () => {
 
         //2. Load Artists name on left menu
         loadPopupLeft(d.data.leaves, d.data.category);
-      }
+      };
 
       const handleEscape = (e) => {
         let popupRef = d3.select("#timeline-popup-content");
-        if(e.key === "Escape" && popupRef.node() !== null){
+        if (e.key === "Escape" && popupRef.node() !== null) {
           const isModalOpen = popupRef.style("z-index") >= 0;
           isModalOpen && closeModal();
         }
-      }
+      };
       document.addEventListener("keydown", handleEscape);
 
       return svg.node();
     }
   }, [data, hideProfanity]);
 
-
   useEffect(() => {
     d3.select("#root").append("div").attr("id", "Test");
 
-    d3.selectAll("*[id^='word-label']")
-      .text((d) => shouldShowLabel(d) ? fixProfanity(d.data.name) : "");
+    d3.selectAll("*[id^='word-label']").text((d) =>
+      shouldShowLabel(d) ? fixProfanity(d.data.name) : ""
+    );
 
     d3.select("#Test").node().remove();
 
-    d3.selectAll('.timeline-rect')
-      .on("mouseover", (e, d) => {
-        // d3.select(e.target).attr("stroke-width", 8).attr("stroke", "var(--light-text)");
-        d3.select("#tooltip")
-          .transition()
-          .duration(200)
-          .style("opacity", 1)
-          .text(`'${fixProfanity(d.data.name)}' was altered in ${d.data.count} Kids Bop lyrics`);
-      })
-      
-  }, [hideProfanity])
+    d3.selectAll(".timeline-rect").on("mouseover", (e, d) => {
+      // d3.select(e.target).attr("stroke-width", 8).attr("stroke", "var(--light-text)");
+      d3.select("#tooltip")
+        .transition()
+        .duration(200)
+        .style("opacity", 1)
+        .text(
+          `'${fixProfanity(d.data.name)}' was altered in ${
+            d.data.count
+          } Kids Bop lyrics`
+        );
+    });
+  }, [hideProfanity]);
 
   const toggleProfanity = () => {
-    console.log('here');
+    console.log("here");
     setHideProfanity(!hideProfanity);
-  }
+  };
 
   const shouldShowLabel = (d) => {
     let fontSize = fontScale(d.data.count).toString() + "pt";
-    let textBox = d3.select("#Test").style('font-size', fontSize).style("font-family", "Lato").text(d.data.name).node().getBoundingClientRect();
+    let textBox = d3
+      .select("#Test")
+      .style("font-size", fontSize)
+      .style("font-family", "Lato")
+      .text(d.data.name)
+      .node()
+      .getBoundingClientRect();
     let textWidth = textBox.width + 1;
     let textHeight = textBox.height;
-      
+
     let boxHeight = d.y1 - d.y0;
     let boxWidth = d.x1 - d.x0;
-    return ( textWidth <= boxWidth ) && (textHeight <= boxHeight);
-  }
+    return textWidth <= boxWidth && textHeight <= boxHeight;
+  };
 
   return (
     <div className="page-container">
       <h1 className="title">What's being altered in pop songs over time?</h1>
       <div className="subtitle">
-        Click on each year to see which lyrics by category were altered the most that year.
+        Click on each year to see which lyrics by category were altered the most
+        that year.
       </div>
       <div id="timeline-wrapper" className="timeline-container">
         <div className="timeline-svg-wrapper">

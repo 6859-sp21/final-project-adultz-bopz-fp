@@ -10,19 +10,24 @@ export const IntroStep = () => (
     <div className="header">Adultz Bopz</div>
     <div className="desc">
       An interactive data visualization tool to understand how Kidz Bop alters
-      or censors pop music for kids.
+      or censors pop music for kids. Keep scrolling to make some new
+      discoveries!
     </div>
     <div className="notice">
       Note: The following visualizations include curse words and are censored by
       default, but you can explore the content and language.
     </div>
-    <Link className="launch-button" to="/">View our project page here.</Link>
+    <Link className="launch-button" to="/">
+      View our project page here.
+    </Link>
   </div>
 );
 
 export const Step1 = () => (
   <div style={{ margin: "15vw", textAlign: "left" }}>
-    <h2 className="header">Curious to see how you're favorite artists song's have been altered?</h2>
+    <h2 className="header">
+      Curious to see how you're favorite artists song's have been altered?
+    </h2>
     <h3>Explore the following bubble visualization to find out!</h3>
   </div>
 );
