@@ -21,7 +21,8 @@ const About = () => {
               </Link>
             </section>
             <section id="carousel2" className="About-section About-section-white-background">
-              <h2>ABSTRACT GOES HERE</h2>
+              <h2>Abstract</h2>
+              <p className="About-section-abstract">Censorship and lyric alterations in music is observed in many public media channels such as the radio, TV, film among others. Often, it’s easy to identify certain profane words and find a replace the word in the lyric to produce a “Clean” or “Radio Edit” of a song. However, in the case study of Kidz Bop, a brand known for making songs as kid friendly as possible, we can visualize these trends to understand how music is altered for young audience, and in some cases, can change the context of a lyric or complete remove it. Our interactive data visualization tools process a hierarchical data transformation to create trends and associations among songs, artists, and altered words found in our music. </p>
             </section>
 
             <section id="carousel3" className="About-section About-section-white-background">

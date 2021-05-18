@@ -81,3 +81,10 @@
 .About-section-info>h4 {
     margin-bottom: 0;
 }
+
+.About-section-abstract {
+    padding: 0 24px;
+    display: flex;
+    text-align: left;
+    font-size: 1.25em;
+}
