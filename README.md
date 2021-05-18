@@ -26,7 +26,7 @@ The deployed site is managed by GitHub Pages. To deploy this repo:
 
 ## Abstract
 
-`// TODO `
+Censorship and lyric alterations in music is observed in many public media channels such as the radio, TV, film among others. Often, it’s easy to identify certain profane words and find a replace the word in the lyric to produce a “Clean” or “Radio Edit” of a song. However, in the case study of Kidz Bop, a brand known for making songs as kid friendly as possible, we can visualize these trends to understand how music is altered for young audience, and in some cases, can change the context of a lyric or complete remove it. Our interactive data visualization tools process a hierarchical data transformation to create trends and associations among songs, artists, and altered words found in our music.
 
 ## Development Process
 
