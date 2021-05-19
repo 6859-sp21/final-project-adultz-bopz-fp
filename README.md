@@ -10,6 +10,9 @@ Nico Salinas, Shannen Wu, Jessica Yin
 
 Dataset URL: [https://github.com/the-pudding/data/tree/master/kidz-bop](https://github.com/the-pudding/data/tree/master/kidz-bop)
 
+## Final Paper
+[https://6859-sp21.github.io/final-project-adultz-bopz-fp/final/FinalPaper.pdf](https://6859-sp21.github.io/final-project-adultz-bopz-fp/final/FinalPaper.pdf)
+
 ## Installation
 
 1. Locally clone the repository
